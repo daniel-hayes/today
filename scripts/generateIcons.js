@@ -6,18 +6,23 @@ const icongen = require('icon-gen');
 const imgSizes = [16, 24, 32, 48, 64, 128, 256, 512, 1024];
 
 const directories = {
-  png: '/png/',
+  png: 'png',
   mac: 'mac',
   windows: 'windows',
 };
 
-const input = path.resolve('../src/static/icons/icon.png');
-const output = path.resolve('./icons');
-const png = output + directories.png;
+const entry = path.join(__dirname, '..', '/src/static/build');
+const input = `${entry}/original-icon.png`;
+const output = `${entry}/icons`;
+const png = `${output}/${directories.png}/`;
 const macDir = path.join(output, directories.mac);
 const winDir = path.join(output, directories.windows);
 
 function setupDirectories() {
+  if (fs.existsSync(output)) {
+    fs.rmdirSync(output, { recursive: true });
+  }
+
   // make dir if does not exist
   if (!fs.existsSync(output)) {
     fs.mkdirSync(output);

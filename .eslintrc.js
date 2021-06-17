@@ -11,4 +11,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
   },
   ignorePatterns: ['node_modules'],
+  env: {
+    browser: true,
+    node: true,
+  },
 };
