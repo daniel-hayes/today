@@ -1,0 +1,10 @@
+.DS_STORE
+.env
+*.provisionprofile
+*.p12
+dist
+node_modules
+coverage
+
+# electron-builder output
+app
