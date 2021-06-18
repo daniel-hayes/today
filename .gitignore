@@ -1,5 +1,5 @@
-.DS_STORE
-.env
-node_modules
-coverage
-notes.md
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+vendor

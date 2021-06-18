@@ -1,8 +1,0 @@
-{
-  "extends": "@tsconfig/svelte/tsconfig.json",
-  "compilerOptions": {
-    "types": ["svelte", "jest"]
-  },
-  "include": ["src/**/*", "scripts"],
-  "exclude": ["node_modules/*", "app-dist/*", "build-dist/*", "output"]
-}
