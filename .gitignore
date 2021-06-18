@@ -1,12 +1,5 @@
 .DS_STORE
 .env
-*.provisionprofile
-*.p12
 node_modules
 coverage
 notes.md
-
-# generated directories
-app-dist
-build-dist
-output
