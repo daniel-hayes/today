@@ -6,17 +6,17 @@ afterSign: scripts/afterSign.js
 afterPack: scripts/afterPack.js
 
 directories:
-  output: dist
+  output: output
 
 files:
-  - temp/dist/**/*
+  - app-dist/**/*
   # - embedded.provisionprofile
 
 mac:
-  icon: temp/build/icons/mac/icon.icns
+  icon: build-dist/icons/mac/icon.icns
   category: public.app-category.productivity
   hardenedRuntime: true
-  entitlements: temp/build/entitlements.mac.plist
+  entitlements: build-dist/entitlements.mac.plist
   # entitlementsInherit: build/entitlements.mac.plist
   # provisioningProfile: embedded.provisionprofile
   gatekeeperAssess: false
@@ -26,13 +26,13 @@ mac:
     - zip
 
 dmg:
-  icon: temp/build/icons/mac/icon.icns
+  icon: build-dist/icons/mac/icon.icns
   iconSize: 128
   contents:
     - { x: 130, y: 220 }
     - { x: 410, y: 220, type: link, path: /Applications }
 win:
-  icon: temp/build/icons/windows/icon.ico
+  icon: build-dist/icons/windows/icon.ico
   target:
     - target: zip
     - target: nsis
@@ -45,13 +45,13 @@ nsis:
   createDesktopShortcut: true
   createStartMenuShortcut: true
   allowToChangeInstallationDirectory: true
-  installerIcon: temp/build/icons/windows/icon.ico
+  installerIcon: build-dist/icons/windows/icon.ico
   shortcutName: Today
   artifactName: Today-${version}.${ext}
 
 linux:
   category: Utility
-  icon: temp/build/icons/png
+  icon: build-dist/icons/png
   target:
     - target: AppImage
     - target: deb

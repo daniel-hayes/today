@@ -4,8 +4,7 @@ const SveltePreprocess = require('svelte-preprocess');
 const path = require('path');
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
-const temp = path.join(__dirname, '/temp');
-const dist = `${temp}/dist`;
+const dist = path.join(__dirname, '/app-dist');
 
 const electronMain = {
   target: 'electron-main',
@@ -36,7 +35,7 @@ const electronMain = {
         { from: path.join(__dirname, '/src/static/app') },
         {
           from: path.join(__dirname, '/src/static/build'),
-          to: `${temp}/build`,
+          to: path.join(__dirname, '/build-dist'),
         },
       ],
     }),

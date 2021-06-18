@@ -6,5 +6,6 @@ node_modules
 coverage
 
 # generated directories
-dist
-temp
+app-dist
+build-dist
+output
