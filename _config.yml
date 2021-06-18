@@ -1,14 +1,15 @@
-title: 'Today: A minimal 24 hour todo list'
+app_name: Today
+sub_title: A minimal 24 hour todo list
 email: hello@danhayes.me
-description: >- # this means to ignore newlines until "baseurl:"
+description: >-
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-baseurl: ''
 github_username: daniel-hayes
 logo: icon.png
-show_downloads: true
-google_analytics: G-PD1BE2E8TN
 
-# Build settings
-theme: jekyll-theme-minimal
+sass:
+  style: compressed
+
+plugins:
+  - jekyll-postcss
