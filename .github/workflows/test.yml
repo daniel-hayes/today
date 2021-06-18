@@ -1,4 +1,4 @@
-name: Build App
+name: Test App
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,5 +25,5 @@ jobs:
       - name: Install npm
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm install
-      - run: npm run build
+      - run: npm run build:prod
       - run: npm test

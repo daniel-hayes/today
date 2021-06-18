@@ -1,21 +1,26 @@
 {
   "name": "today",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "author": {
     "name": "Daniel Hayes",
     "email": "hello@danhayes.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daniel-hayes/today"
   },
   "private": true,
   "description": "A minimal 24 hour todo list",
   "main": "app-dist/index.js",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "build": "npm run before && npm run generate:css && cross-env webpack",
     "build:prod": "npm run before && npm run generate:css && cross-env NODE_ENV=production webpack",
     "dev": "webpack --watch",
     "start": "npm run build && npm run electron & npm run dev",
     "electron": "electron ./app-dist/index.js",
     "clean": "rm -rf app-dist && rm -rf build-dist && rm -rf output",
-    "dist:sign": "./build/sign.sh && npm run build:prod && electron-builder -mwl",
+    "dist:sign": "./scripts/sign.sh && npm run build:prod && electron-builder -mwl",
     "dist": "npm run build:prod && electron-builder -mwl",
     "before": "npm run clean && npm run validate",
     "generate:css": "node ./scripts/generateCSS.js",

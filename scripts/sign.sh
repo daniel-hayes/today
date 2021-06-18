@@ -7,13 +7,13 @@
 # See: https://github.com/electron-userland/electron-builder/wiki/Code-Signing
 
 # Check that the .p12 file is in the correct location.
-CERT_PATH=~/.certs/mac-certs.p12
+CERT_PATH=./certs.p12
 if [ ! -f $CERT_PATH ]; then
   echo "Can't find the .p12 file at $CERT_PATH"
 fi
 
-# Check that the folder for the penguin project is still in the right place
-PROJECT_PATH=~/Projects/Web/today
+# Check that the folder for the project is still in the right place
+PROJECT_PATH=~/Projects/today
 if [ ! -f $PROJECT_PATH/package.json ]; then
   echo "Can't find the project! Quitting."; exit 1;
 fi

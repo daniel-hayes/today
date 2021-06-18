@@ -84,7 +84,7 @@
           />
         </svg>
 
-        <p><a href="https://ko-fi.com/bklynbot" target="_blank">Ko-fi</a></p>
+        <p><a href="https://ko-fi.com/bklynbot" target="_blank">Donate</a></p>
       </li>
       <li>
         <svg width="12" height="11" viewBox="0 0 12 11" fill="none">
