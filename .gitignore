@@ -2,9 +2,10 @@
 .env
 *.provisionprofile
 *.p12
-dist
 node_modules
 coverage
 
-# electron-builder output
-app
+# generated directories
+app-dist
+build-dist
+output

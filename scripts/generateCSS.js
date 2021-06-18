@@ -1,6 +1,8 @@
 const convert = require('color-convert');
 const fs = require('fs');
-const themes = require('./src/static/themes/themes.json');
+const path = require('path');
+const themePath = path.join(__dirname, '..', 'src/static/app/themes');
+const themes = require(`${themePath}/themes.json`);
 
 themes.forEach((theme) => {
   const primary = convert.hex.hsl(theme.primary);
@@ -38,5 +40,5 @@ themes.forEach((theme) => {
 }
 `.trim();
 
-  fs.writeFileSync(`src/static/themes/${theme.file}`, css, 'utf8');
+  fs.writeFileSync(`${themePath}/${theme.file}`, css, 'utf8');
 });
