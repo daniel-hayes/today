@@ -8,7 +8,7 @@ baseurl: ''
 github_username: daniel-hayes
 logo: icon.png
 show_downloads: true
-google_analytics: UA-199376250-1
+google_analytics: G-PD1BE2E8TN
 
 # Build settings
 theme: jekyll-theme-minimal
