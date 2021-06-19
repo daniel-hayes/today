@@ -1,0 +1,76 @@
+---
+---
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+// Globals
+
+h1 {
+  font-family: 'Questrial', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+// Typography
+.primary-font {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.alt-font {
+  font-family: 'Questrial', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+// Mixins
+@mixin themeGallery($width: 400px, $count: 8, $spacing: 70px) {
+  $left: 0;
+  $fullWidth: ($spacing * ($count - 1)) + $width;
+
+  .theme-gallery {
+    margin-top: 60px;
+    width: $fullWidth;
+    margin-left: -#{$fullWidth / 2};
+    left: 50%;
+  }
+
+  @for $i from 1 through $count {
+    .theme-#{$i} {
+      width: $width;
+      left: $left;
+      top: 0;
+      position: absolute;
+    }
+
+    // increment spacing
+    $left: $left + $spacing;
+  }
+
+  .theme-1 {
+    // this allows the height of the container to be determined automatically
+    position: relative;
+  }
+}
+
+// _includes
+@include themeGallery(500px, 8, 80px);
+
+// Custom Tailwind class extensions
+.bg-primary {
+  background-color: #39abf7;
+}
+
+.container {
+  margin: auto;
+
+  @media (min-width: 1060px) {
+    max-width: 1060px;
+  }
+}

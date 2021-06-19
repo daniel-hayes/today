@@ -1,5 +1,112 @@
 ---
-layout: default
+themeImages:
+  - 'always-blue'
+  - 'seaweed'
+  - 'matcha'
+  - 'merlot'
+  - 'lavendar'
+  - 'noir'
+  - 'dark'
+  - 'light'
 ---
 
-<!-- <h1 class="text-white text-4xl font-semibold">Jekyll Starter Tailwind</h1> -->
+<!DOCTYPE html>
+<html class="no-js" lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{{ site.app_name }}: {{ site.sub_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append:
+    site.github.build_revision | relative_url }}">
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PD1BE2E8TN"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-PD1BE2E8TN');
+    </script>
+  </head>
+
+  <body class="bg-primary text-white px-4 py-3">
+    <header class="container">
+      <nav class="flex justify-between items-center">
+        <img
+          class="w-12"
+          src="assets/images/{{site.logo | relative_url}}"
+          alt="Logo"
+        />
+
+        <ul class="flex">
+          <li class="mr-5">
+            <a target="_blank" href="https://github.com/daniel-hayes/today"
+              >Github</a
+            >
+          </li>
+          <li>
+            <a href="#downloads">Download</a>
+          </li>
+        </ul>
+      </nav>
+
+      <h1 class="text-6xl text-center">{{ site.app_name }}</h1>
+      <h2 class="text-center mt-2">{{ site.sub_title }}</h2>
+
+      <section class="theme-gallery relative">
+        {% include theme-images.html %}
+      </section>
+    </header>
+
+    <main class="container">
+      <p class="my-8 mx-10 text-center text-2xl">{{ site.description }}</p>
+
+      <div class="text-center">
+        <a
+          class="
+            inline-flex
+            justify-center
+            items-center
+            border border-white
+            rounded-md
+            p-2
+            mb-6
+            transition-all
+            hover:border-gray-300
+            hover:no-underline
+          "
+          target="_blank"
+          href="{{ site.github.zip_url }}"
+          ><img class="w-5 mr-3" src="assets/images/download.svg" /> Download</a
+        >
+      </div>
+    </main>
+
+    <footer class="container text-xs">
+      <p class="alt-font uppercase">Contact</p>
+      <ul>
+        <li class="my-1">
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        </li>
+        <li class="my-1">
+          <a target="_blank" href="{{ site.contactWebsite }}">danhayes.me</a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>
