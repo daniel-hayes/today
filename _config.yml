@@ -1,7 +1,9 @@
 app_name: Today
 sub_title: A minimal 24 hour todo list
 email: hello@danhayes.me
-contactWebsite: https://danhayes.me
+contact_url: https://danhayes.me
+github_url: https://github.com/daniel-hayes/today
+releases_url: https://github.com/daniel-hayes/today/releases/
 description: >-
   A simple, customizable, todo list that clears itself every 24 hours, allowing you to focus on the daily tasks that matter.
 github_username: daniel-hayes
