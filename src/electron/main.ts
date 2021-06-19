@@ -7,9 +7,6 @@ import MenuBuilder from './menu';
 autoUpdater.logger = log;
 (autoUpdater.logger as ElectronLog).transports.file.level = 'info';
 
-// autoUpdater.autoDownload = true
-// autoUpdater.autoInstallOnAppQuit = true
-
 log.info('App starting');
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -25,7 +22,7 @@ function createMainWindow() {
     minHeight: 130,
     maxWidth: 600,
     width: 500,
-    frame: false,
+    frame: process.platform !== 'darwin',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
