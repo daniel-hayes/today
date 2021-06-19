@@ -44,67 +44,70 @@ themeImages:
     </script>
   </head>
 
-  <body class="bg-primary text-white px-4 py-3">
-    <header class="container">
-      <nav class="flex justify-between items-center">
-        <img
-          class="w-12"
-          src="assets/images/{{site.logo | relative_url}}"
-          alt="Logo"
-        />
+  <body class="bg-primary text-white">
+    <div class="overflow-hidden px-4 py-3">
+      <header class="container">
+        <nav class="flex justify-between items-center">
+          <img
+            class="w-12"
+            src="assets/images/{{site.logo | relative_url}}"
+            alt="Logo"
+          />
 
-        <ul class="flex">
-          <li class="mr-5">
-            <a target="_blank" href="{{ site.github_url }}">Github</a>
+          <ul class="flex">
+            <li class="mr-5">
+              <a target="_blank" href="{{ site.github_url }}">Github</a>
+            </li>
+            <li>
+              <a href="#downloads">Download</a>
+            </li>
+          </ul>
+        </nav>
+
+        <h1 class="text-6xl text-center mt-4">{{ site.app_name }}</h1>
+        <h2 class="text-center mt-2">{{ site.sub_title }}</h2>
+
+        <section class="theme-gallery relative">
+          {% include theme-images.html %}
+        </section>
+      </header>
+
+      <main class="container">
+        <p class="my-8 mx-10 text-center text-2xl">{{ site.description }}</p>
+
+        <div id="downloads" class="text-center">
+          <a
+            class="
+              inline-flex
+              justify-center
+              items-center
+              border border-white
+              rounded-md
+              p-2
+              mb-12
+              transition-all
+              hover:border-gray-300
+              hover:no-underline
+            "
+            target="_blank"
+            href="{{ site.releases_url }}"
+            ><img class="w-5 mr-3" src="assets/images/download.svg" />
+            Download</a
+          >
+        </div>
+      </main>
+
+      <footer class="container text-xs">
+        <p class="alt-font uppercase">Contact</p>
+        <ul class="mb-4">
+          <li class="my-1">
+            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
           </li>
-          <li>
-            <a href="#downloads">Download</a>
+          <li class="my-1">
+            <a target="_blank" href="{{ site.contact_url }}">danhayes.me</a>
           </li>
         </ul>
-      </nav>
-
-      <h1 class="text-6xl text-center">{{ site.app_name }}</h1>
-      <h2 class="text-center mt-2">{{ site.sub_title }}</h2>
-
-      <section class="theme-gallery relative">
-        {% include theme-images.html %}
-      </section>
-    </header>
-
-    <main class="container">
-      <p class="my-8 mx-10 text-center text-2xl">{{ site.description }}</p>
-
-      <div id="downloads" class="text-center">
-        <a
-          class="
-            inline-flex
-            justify-center
-            items-center
-            border border-white
-            rounded-md
-            p-2
-            mb-12
-            transition-all
-            hover:border-gray-300
-            hover:no-underline
-          "
-          target="_blank"
-          href="{{ site.releases_url }}"
-          ><img class="w-5 mr-3" src="assets/images/download.svg" /> Download</a
-        >
-      </div>
-    </main>
-
-    <footer class="container text-xs">
-      <p class="alt-font uppercase">Contact</p>
-      <ul>
-        <li class="my-1">
-          <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-        </li>
-        <li class="my-1">
-          <a target="_blank" href="{{ site.contact_url }}">danhayes.me</a>
-        </li>
-      </ul>
-    </footer>
+      </footer>
+    </div>
   </body>
 </html>
