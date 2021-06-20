@@ -97,7 +97,8 @@
       </li>
     </ul>
     <Hr />
-    <p class="version">v{version}</p>
+    <p class="left small">v{version}</p>
+    <p class="right small"><a href="https://todaylist.io/privacy-policy" target="_blank">Privacy Policy</a></p>
   </div>
 </Modal>
 
@@ -185,10 +186,17 @@
     fill: currentColor;
   }
 
-  .version {
+  .small {
     font-size: 10px;
     margin-top: 8px;
     margin-bottom: 16px;
+  }
+
+  .left {
+    float: left;
+  }
+  
+  .right {
     float: right;
   }
 </style>
