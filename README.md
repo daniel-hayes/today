@@ -5,6 +5,7 @@
 
 # Today
 ### A minimal 24 hour todo list
+> The list clears every 24 hours which will allow you to focus on your daily tasks without letting them pile up.
 #### Built with Svelte + Electron + Typescript
 
 <div style="background: blue;">
