@@ -68,7 +68,8 @@ a:focus {
 }
 
 .container {
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 
   @media (min-width: 1060px) {
     max-width: 1060px;

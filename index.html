@@ -12,37 +12,7 @@ themeImages:
 
 <!DOCTYPE html>
 <html class="no-js" lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>{{ site.app_name }}: {{ site.sub_title }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append:
-    site.github.build_revision | relative_url }}">
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-PD1BE2E8TN"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-PD1BE2E8TN');
-    </script>
-  </head>
+  {% include head.html %}
 
   <body class="bg-primary text-white">
     <div class="overflow-hidden px-4 py-3">
@@ -97,16 +67,29 @@ themeImages:
         </div>
       </main>
 
-      <footer class="container text-xs">
-        <p class="alt-font uppercase">Contact</p>
-        <ul class="mb-4">
-          <li class="my-1">
-            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
-          </li>
-          <li class="my-1">
-            <a target="_blank" href="{{ site.contact_url }}">danhayes.me</a>
-          </li>
-        </ul>
+      <footer class="container text-xs flex mt-10">
+        <div class="flex flex-col mr-12">
+          <p class="alt-font uppercase">Contact</p>
+          <ul class="mb-4">
+            <li class="my-1">
+              <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+            </li>
+            <li class="my-1">
+              <a target="_blank" href="{{ site.contact_url }}">danhayes.me</a>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col">
+          <p class="alt-font uppercase">Links</p>
+          <ul class="mb-4">
+            <li class="my-1">
+              <a href="/privacy-policy.html">Privacy Policy</a>
+            </li>
+            <li class="my-1">
+              <a target="_blank" href="{{ site.github_url }}">Github</a>
+            </li>
+          </ul>
+        </div>
       </footer>
     </div>
   </body>

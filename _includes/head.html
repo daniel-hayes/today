@@ -1,0 +1,31 @@
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>{{ site.app_name }}: {{ site.sub_title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link
+    href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@300&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append:
+  site.github.build_revision | relative_url }}">
+
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-PD1BE2E8TN"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PD1BE2E8TN');
+  </script>
+</head>

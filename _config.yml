@@ -11,6 +11,3 @@ logo: icon.png
 
 sass:
   style: compressed
-
-plugins:
-  - jekyll-postcss
