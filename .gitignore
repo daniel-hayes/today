@@ -5,3 +5,13 @@ _site
 vendor
 .DS_STORE
 node_modules
+.env
+*.provisionprofile
+*.p12
+node_modules
+coverage
+notes.md
+app-dist
+build-dist
+output
+_site

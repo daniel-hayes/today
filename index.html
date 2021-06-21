@@ -29,7 +29,7 @@ themeImages:
               <a target="_blank" href="{{ site.github_url }}">Github</a>
             </li>
             <li>
-              <a target="_blank" href="{{ site.releases_url }}">Download</a>
+              <a target="_blank" href="{{ site.releases_url }}">Releases</a>
             </li>
           </ul>
         </nav>
@@ -37,24 +37,19 @@ themeImages:
         <h1 class="text-6xl text-center mt-4">{{ site.app_name }}</h1>
         <h2 class="text-center mt-2">{{ site.sub_title }}</h2>
 
-        <section class="theme-gallery relative">
-          {% include theme-images.html %}
-        </section>
-      </header>
-
-      <main class="container">
         <p class="my-8 mx-10 text-center text-2xl">{{ site.description }}</p>
 
         <div class="text-center">
           <a
+            id="download"
             class="
               inline-flex
               justify-center
               items-center
               border border-white
               rounded-md
-              p-2
-              mb-12
+              px-4
+              py-2
               transition-all
               hover:border-gray-300
               hover:no-underline
@@ -65,7 +60,15 @@ themeImages:
             Download</a
           >
         </div>
-      </main>
+
+        <main class="container">
+          <!-- <p class="my-8 mx-10 text-center text-2xl">{{ site.description }}</p> -->
+        </main>
+
+        <section class="theme-gallery relative">
+          {% include theme-images.html %}
+        </section>
+      </header>
 
       <footer class="container text-xs flex mt-10">
         <div class="flex flex-col mr-12">
@@ -92,5 +95,45 @@ themeImages:
         </div>
       </footer>
     </div>
+
+    <script>
+      (function (window) {
+        function downloadLink() {
+          return fetch(
+            'https://api.github.com/repos/daniel-hayes/today/releases/latest'
+          )
+            .then((res) => res.json())
+            .then((res) => {
+              // ex: 1.0.0
+              return res.name;
+            });
+        }
+
+        function getLink() {
+          const platform = window.navigator.platform;
+          const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
+          const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+          let extension = null;
+
+          if (macosPlatforms.indexOf(platform) !== -1) {
+            extension = 'dmg';
+          } else if (windowsPlatforms.indexOf(platform) !== -1) {
+            extension = 'exe';
+          } else if (/Linux/.test(platform)) {
+            extension = 'AppImage';
+          }
+
+          if (extension) {
+            downloadLink().then((version) => {
+              const downloadButton = document.getElementById('download');
+              downloadButton.href = `https://www.github.com/daniel-hayes/today/releases/latest/download/Today-${version}.${extension}`;
+              downloadButton.setAttribute('download', '');
+            });
+          }
+        }
+
+        getLink();
+      })(window);
+    </script>
   </body>
 </html>

@@ -35,7 +35,7 @@ a:focus {
   $fullWidth: ($spacing * ($count - 1)) + $width;
 
   .theme-gallery {
-    margin-top: 60px;
+    margin-top: 45px;
     width: $fullWidth;
     margin-left: -#{$fullWidth / 2};
     left: 50%;
