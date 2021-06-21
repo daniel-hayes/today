@@ -2,63 +2,62 @@ import { Menu, BrowserWindow } from 'electron';
 import { Action, Channel } from './bridge';
 const isMac = process.platform === 'darwin';
 
-const MenuBuilder = function (window: BrowserWindow, appName: string): { buildMenu: () => Menu } {
+const MenuBuilder = function (
+  window: BrowserWindow,
+  appName: string
+): { buildMenu: () => Menu } {
   const defaultTemplate = [
-    ...(isMac
-      ? [
-          {
-            label: appName,
-            submenu: [
-              {
-                role: 'about',
-                label: 'About',
+    {
+      label: appName,
+      submenu: [
+        {
+          role: 'about',
+          label: 'About',
+        },
+        {
+          type: 'separator',
+        },
+        {
+          label: 'Preferences',
+          submenu: [
+            {
+              label: 'Settings',
+              accelerator: 'CommandOrControl+,',
+              click() {
+                window.webContents.send(Channel.SHORTCUT, Action.SETTINGS);
               },
-              {
-                type: 'separator',
-              },
-              {
-                label: 'Preferences',
-                submenu: [
-                  {
-                    label: 'Settings',
-                    accelerator: 'CommandOrControl+,',
-                    click() {
-                      window.webContents.send(Channel.SHORTCUT, Action.SETTINGS);
-                    },
-                  },
-                  // {
-                  //   label: 'Float Above All Windows',
-                  //   type: 'checkbox',
-                  //   checked: true,
-                  //   // accelerator: 'CommandOrControl+,',
-                  //   // click() {
-                  //   //   window.webContents.send('SHORTCUT', 'SETTINGS');
-                  //   // },
-                  // },
-                ],
-              },
-              {
-                type: 'separator',
-              },
-              {
-                role: 'hide',
-                label: 'Hide',
-              },
-              {
-                role: 'unhide',
-                label: 'Unhide',
-              },
-              {
-                type: 'separator',
-              },
-              {
-                role: 'quit',
-                label: 'Quit',
-              },
-            ],
-          },
-        ]
-      : []),
+            },
+            // {
+            //   label: 'Float Above All Windows',
+            //   type: 'checkbox',
+            //   checked: true,
+            //   // accelerator: 'CommandOrControl+,',
+            //   // click() {
+            //   //   window.webContents.send('SHORTCUT', 'SETTINGS');
+            //   // },
+            // },
+          ],
+        },
+        {
+          type: 'separator',
+        },
+        {
+          role: 'hide',
+          label: 'Hide',
+        },
+        {
+          role: 'unhide',
+          label: 'Unhide',
+        },
+        {
+          type: 'separator',
+        },
+        {
+          role: 'quit',
+          label: 'Quit',
+        },
+      ],
+    },
     {
       label: 'Edit',
       submenu: [
@@ -226,7 +225,9 @@ const MenuBuilder = function (window: BrowserWindow, appName: string): { buildMe
 
   return {
     buildMenu: function () {
-      const menu = Menu.buildFromTemplate(defaultTemplate as Electron.MenuItemConstructorOptions[]);
+      const menu = Menu.buildFromTemplate(
+        defaultTemplate as Electron.MenuItemConstructorOptions[]
+      );
       Menu.setApplicationMenu(menu);
       return menu;
     },
