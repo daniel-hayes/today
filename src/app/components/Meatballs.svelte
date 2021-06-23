@@ -4,8 +4,7 @@
   export let deleteTodo: () => void;
   let isOpen = false;
 
-  function handleClick(e) {
-    console.log(e.currentTarget);
+  function handleClick() {
     isOpen = !isOpen;
   }
 
