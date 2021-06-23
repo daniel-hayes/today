@@ -63,7 +63,9 @@
     {@html text}
   </p>
 
-  <Meatballs {deleteTodo} />
+  <span>
+    <Meatballs {deleteTodo} />
+  </span>
 </div>
 
 <style>
@@ -83,6 +85,17 @@
       var(--theme-primary-color-s),
       calc(var(--theme-primary-color-l) + 5%)
     );
+  }
+
+  span {
+    display: none;
+  }
+
+  /* only show additional menu items if active */
+  div:hover span,
+  div:active span,
+  div:focus-within span {
+    display: block;
   }
 
   input {

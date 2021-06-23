@@ -2,11 +2,10 @@
   import { backOut } from 'svelte/easing';
 
   export let deleteTodo: () => void;
-
   let isOpen = false;
-  //   export let close: () => void;
 
-  function handleClick() {
+  function handleClick(e) {
+    console.log(e.currentTarget);
     isOpen = !isOpen;
   }
 
@@ -30,6 +29,10 @@
       },
     };
   }
+
+  function close() {
+    isOpen = false;
+  }
 </script>
 
 <button class="meatballs" on:click={handleClick}>
@@ -47,6 +50,7 @@
 </button>
 
 {#if isOpen}
+  <div class="backdrop" on:click={close} />
   <div
     in:fadeScale={{
       duration: 200,
@@ -55,7 +59,8 @@
     }}
   >
     <ul>
-      <li>
+      <!-- @TODO not ready yet. still need to design this -->
+      <!-- <li>
         <button class="action"
           ><svg
             width="14"
@@ -69,7 +74,7 @@
           >
           <p>Focus</p></button
         >
-      </li>
+      </li> -->
       <li>
         <button class="action" on:click={() => deleteTodo()}
           ><svg
@@ -103,13 +108,22 @@
     z-index: 1;
   }
 
+  .backdrop {
+    background: transparent;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
   button {
     color: var(--theme-secondary-color);
   }
 
   .meatballs {
     opacity: 0.3;
-    padding: 14px 10px;
+    padding: 14px 0 14px 10px;
     display: flex;
     align-items: center;
   }
@@ -131,7 +145,7 @@
   }
 
   .action svg {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   li {
