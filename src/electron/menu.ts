@@ -137,6 +137,23 @@ const MenuBuilder = function (
           type: 'separator',
         },
         {
+          label: 'Remove completed items',
+          accelerator: 'CommandOrControl+Shift+D',
+          click() {
+            window.webContents.send(Channel.SHORTCUT, Action.CLEAR);
+          },
+        },
+        {
+          label: 'Remove all items',
+          accelerator: 'CommandOrControl+Shift+R',
+          click() {
+            window.webContents.send(Channel.SHORTCUT, Action.RESET);
+          },
+        },
+        {
+          type: 'separator',
+        },
+        {
           label: 'Navigate',
           submenu: [
             'First',

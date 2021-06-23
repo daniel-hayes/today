@@ -9,6 +9,8 @@ export enum Action {
   NEW = 'NEW',
   EDIT = 'EDIT',
   COMPLETE = 'COMPLETE',
+  CLEAR = 'CLEAR',
+  RESET = 'RESET',
   FIRST = 'FIRST',
   SECOND = 'SECOND',
   THIRD = 'THIRD',
