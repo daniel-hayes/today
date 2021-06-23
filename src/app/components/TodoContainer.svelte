@@ -16,10 +16,14 @@
   let inputValue = '';
   let input: HTMLInputElement;
 
+  function clearTodos() {
+    state.setTodos([]);
+    todos = [];
+  }
+
   function shouldClearTodos() {
     if (new Date($store.expires) <= new Date()) {
-      state.setTodos([]);
-      todos = [];
+      clearTodos();
     }
   }
 
@@ -114,6 +118,16 @@
             deleteTodo(document.activeElement.id);
           }
         }
+      }
+
+      if (action === Action.CLEAR) {
+        const unchecked = $store.todos.filter((todo) => !todo.checked);
+        state.setTodos(unchecked);
+        todos = unchecked;
+      }
+
+      if (action === Action.RESET) {
+        clearTodos();
       }
     });
   });

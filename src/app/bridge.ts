@@ -6,6 +6,8 @@ export enum Channel {
 export enum Action {
   DELETE = 'DELETE',
   SETTINGS = 'SETTINGS',
+  CLEAR = 'CLEAR',
+  RESET = 'RESET',
 }
 
 type Callback = (action: Action) => void;
