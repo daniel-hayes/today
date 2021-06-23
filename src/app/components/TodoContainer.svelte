@@ -87,7 +87,8 @@
     if ($store.theme.title === 'Custom') {
       const currentCSSColors = getColorsFromCSS();
       variants.forEach((swatch) => {
-        const storeOrDOMHexValue = $store.theme[swatch] ?? currentCSSColors[swatch].hex;
+        const storeOrDOMHexValue =
+          $store.theme[swatch] ?? currentCSSColors[swatch].hex;
         // update DOM to include custom vars
         updateCSSVars(swatch, storeOrDOMHexValue);
       });
@@ -96,16 +97,19 @@
     bridge(Channel.SHORTCUT, (action: Action) => {
       if (action === Action.DELETE) {
         if (document.activeElement) {
-          const checkboxIndex = (document.activeElement as HTMLInputElement).dataset.checkboxIndex;
-          const checkboxTextIndex = (document.activeElement as HTMLInputElement).dataset
-            .checkboxTextIndex;
+          const checkboxIndex = (document.activeElement as HTMLInputElement)
+            .dataset.checkboxIndex;
+          const checkboxTextIndex = (document.activeElement as HTMLInputElement)
+            .dataset.checkboxTextIndex;
 
           if (checkboxIndex) {
             deleteTodo(document.activeElement.id);
           }
 
           if (checkboxTextIndex) {
-            const checkbox = document.querySelector(`[data-checkbox-index="${checkboxTextIndex}"]`);
+            const checkbox = document.querySelector(
+              `[data-checkbox-index="${checkboxTextIndex}"]`
+            );
             (checkbox as HTMLInputElement).focus();
             deleteTodo(document.activeElement.id);
           }
@@ -124,7 +128,11 @@
 <form on:submit|preventDefault={addTodo}>
   <span>
     <button type="submit" tabindex="-1">
-      <svg fill="var(--theme-secondary-color)" viewBox="0 0 24 24" width="20" height="20"
+      <svg
+        fill="var(--theme-secondary-color)"
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
         ><path
           fill-rule="evenodd"
           d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
@@ -143,8 +151,17 @@
 </form>
 <ul class:list={todos.length > 0}>
   {#each todos as todo, index (todo.id)}
-    <li in:fly={{ y: 4, duration: 150, easing: backOut }} out:fly={{ y: -2, duration: 150 }}>
-      <Todo {todo} update={updateTodo} {setChecked} index={index + 1} />
+    <li
+      in:fly={{ y: 4, duration: 150, easing: backOut }}
+      out:fly={{ y: -2, duration: 150 }}
+    >
+      <Todo
+        {todo}
+        update={updateTodo}
+        remove={deleteTodo}
+        {setChecked}
+        index={index + 1}
+      />
     </li>
   {/each}
 </ul>

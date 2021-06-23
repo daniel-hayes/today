@@ -2,11 +2,13 @@
   import linkifyHtml from 'linkifyjs/html';
   import emoji from 'node-emoji';
   import type { Todo } from '../store/state';
+  import Meatballs from './Meatballs.svelte';
 
   export let todo: Todo;
   export let index: number;
   export let setChecked: (id: string, checked: boolean) => void;
   export let update: (id: string, text: string) => void;
+  export let remove: (id: string) => void;
 
   let checkbox: HTMLElement;
   let text: string = transform(todo.text);
@@ -29,6 +31,10 @@
       })
     );
   }
+
+  function deleteTodo() {
+    remove(todo.id);
+  }
 </script>
 
 <div>
@@ -48,9 +54,18 @@
       />
     </svg>
   </label>
-  <p data-checkbox-text-index={index} tabindex="-1" contenteditable on:blur={handleBlur}>
+  <p
+    data-checkbox-text-index={index}
+    tabindex="-1"
+    contenteditable
+    on:blur={handleBlur}
+  >
     {@html text}
   </p>
+
+  <span>
+    <Meatballs {deleteTodo} />
+  </span>
 </div>
 
 <style>
@@ -60,6 +75,7 @@
     transition: background ease-in 150ms;
     padding: 4px 10px;
     border-radius: 4px;
+    position: relative;
   }
 
   div:hover,
@@ -69,6 +85,17 @@
       var(--theme-primary-color-s),
       calc(var(--theme-primary-color-l) + 5%)
     );
+  }
+
+  span {
+    display: none;
+  }
+
+  /* only show additional menu items if active */
+  div:hover span,
+  div:active span,
+  div:focus-within span {
+    display: block;
   }
 
   input {
