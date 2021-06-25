@@ -131,6 +131,72 @@
       }
     });
   });
+
+  // Draggable functionality
+  // @TODO clean this up. ideally add to it's own component
+  let draggable: HTMLElement;
+  let grabbed: HTMLElement;
+  let position = {
+    mouseY: 0,
+    offsetY: 0,
+    draggableY: 0, // distance from top of list to top of client
+  };
+
+  function handleMouseMove(e: MouseEvent) {
+    e.stopPropagation();
+    drag(e.clientY);
+  }
+
+  function handleMouseEnter(e: MouseEvent) {
+    e.stopPropagation();
+    dragEnter(e.target as HTMLElement);
+  }
+
+  function handleMouseDone(e: MouseEvent) {
+    e.stopPropagation();
+    release();
+  }
+
+  function handleMouseDown(e: MouseEvent) {
+    grab(e.clientY, this);
+  }
+
+  function grab(clientY: number, element: HTMLElement) {
+    grabbed = element.parentElement;
+    draggable.innerHTML = grabbed.innerHTML;
+    position.offsetY = grabbed.getBoundingClientRect().y - clientY;
+    drag(clientY);
+  }
+
+  function drag(clientY: number) {
+    if (grabbed) {
+      position.mouseY = clientY;
+      position.draggableY = draggable.parentElement.getBoundingClientRect().y;
+    }
+  }
+
+  function dragEnter(target: HTMLElement) {
+    if (grabbed && target != grabbed) {
+      moveDatum(
+        parseInt(grabbed.dataset.index),
+        parseInt(target.dataset.index)
+      );
+    }
+  }
+
+  function moveDatum(from: number, to: number) {
+    const fromIndex = todos[from];
+    const temp = [...todos.slice(0, from), ...todos.slice(from + 1)];
+    todos = [...temp.slice(0, to), fromIndex, ...temp.slice(to)];
+  }
+
+  function release() {
+    grabbed = null;
+    draggable.innerHTML = null;
+
+    // update locally stored todos
+    state.setTodos(todos);
+  }
 </script>
 
 <svelte:head>
@@ -140,35 +206,62 @@
 </svelte:head>
 
 <form on:submit|preventDefault={addTodo}>
-  <span>
-    <button type="submit" tabindex="-1">
-      <svg
-        fill="var(--theme-secondary-color)"
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        ><path
-          fill-rule="evenodd"
-          d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
-        /></svg
-      >
-    </button>
+  <button type="submit" tabindex="-1">
+    <svg viewBox="0 0 24 24" width="20" height="20"
+      ><path
+        fill-rule="evenodd"
+        d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
+      /></svg
+    >
+  </button>
 
-    <input
-      id="create"
-      bind:value={inputValue}
-      bind:this={input}
-      type="text"
-      placeholder="What do you need to do?"
-    />
-  </span>
+  <input
+    id="create"
+    bind:value={inputValue}
+    bind:this={input}
+    type="text"
+    placeholder="What do you need to do?"
+  />
 </form>
-<ul class:list={todos.length > 0}>
+
+<ul
+  on:mousemove={handleMouseMove}
+  on:mouseup={handleMouseDone}
+  on:mouseleave={handleMouseDone}
+  class:list={todos.length > 0}
+>
+  <li
+    bind:this={draggable}
+    id="draggable"
+    class={grabbed ? 'active' : ''}
+    style={'top: ' +
+      (position.mouseY + position.offsetY - position.draggableY) +
+      'px'}
+  />
+
   {#each todos as todo, index (todo.id)}
     <li
       in:fly={{ y: 4, duration: 150, easing: backOut }}
       out:fly={{ y: -2, duration: 150 }}
+      id={grabbed && todo.id === grabbed.dataset.id ? 'grabbed' : ''}
+      class="item"
+      data-index={index}
+      data-id={todo.id}
+      on:mouseenter={handleMouseEnter}
     >
+      <span
+        style={grabbed ? 'cursor: grabbing' : ''}
+        on:mousedown={handleMouseDown}
+        ><svg
+          class="grab"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+          />
+        </svg></span
+      >
       <Todo
         {todo}
         update={updateTodo}
@@ -179,20 +272,35 @@
     </li>
   {/each}
 </ul>
+
 <Settings />
 
 <style>
   form {
+    position: relative;
     text-align: center;
     width: 100%;
   }
 
   ul {
     width: 100%;
+    position: relative;
+  }
+
+  li {
+    user-select: none;
+    position: relative;
   }
 
   span {
-    position: relative;
+    -webkit-app-region: no-drag;
+    cursor: grab;
+    align-self: center;
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    margin-top: -8px;
+    height: -webkit-fill-available;
   }
 
   button {
@@ -231,7 +339,44 @@
       calc(var(--theme-primary-color-l) + 5%)
     );
   }
-  svg {
+
+  svg.grab {
+    width: 16px;
+    opacity: 0;
+    padding-right: 2px;
+  }
+
+  li:hover svg.grab {
     opacity: 0.3;
+  }
+
+  li:hover svg.grab:hover {
+    opacity: 1;
+  }
+
+  svg {
+    fill: var(--theme-secondary-color);
+    opacity: 0.3;
+  }
+
+  #grabbed {
+    opacity: 0;
+  }
+
+  #draggable {
+    width: 100%;
+    pointer-events: none;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: var(--theme-primary-color);
+  }
+
+  #draggable.active {
+    z-index: 1;
+    opacity: 0.7;
+    box-shadow: 1px 1px 4px 0px rgb(0 0 0 / 20%);
   }
 </style>
