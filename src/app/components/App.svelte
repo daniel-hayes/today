@@ -5,7 +5,9 @@
 
   // setup listeners
   const blur = (e: KeyboardEvent) => {
-    const editableElement = (e.target as HTMLElement).hasAttribute('contenteditable');
+    const editableElement = (e.target as HTMLElement).hasAttribute(
+      'contenteditable'
+    );
 
     if (editableElement && (e.key === 'Enter' || e.key === 'Escape')) {
       (document.activeElement as HTMLElement).blur();
@@ -41,6 +43,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 16px;
+    padding: 16px 22px;
   }
 </style>

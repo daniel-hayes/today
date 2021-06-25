@@ -76,7 +76,6 @@
     padding: 4px 10px;
     border-radius: 4px;
     position: relative;
-    flex: 1;
   }
 
   div:hover,

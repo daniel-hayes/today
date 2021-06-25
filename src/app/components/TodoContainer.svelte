@@ -10,7 +10,6 @@
   import { onMount } from 'svelte';
   import bridge, { Action, Channel } from '../bridge';
   import { trackEvent } from '../tracking';
-  // import Drag from './Drag.svelte';
   import { flip } from 'svelte/animate';
 
   const { store } = state;
@@ -134,12 +133,13 @@
     });
   });
 
-  let ghost;
-  let grabbed;
-
-  let mouseY = 0; // pointer y coordinate within client
-  let offsetY = 0; // y distance from top of grabbed element to pointer
-  let layerY = 0; // distance from top of list to top of client
+  let draggable: HTMLElement;
+  let grabbed: HTMLElement;
+  let position = {
+    mouseY: 0,
+    offsetY: 0,
+    draggableY: 0, // distance from top of list to top of client
+  };
 
   function handleMouseMove(e: MouseEvent) {
     e.stopPropagation();
@@ -148,10 +148,10 @@
 
   function handleMouseEnter(e: MouseEvent) {
     e.stopPropagation();
-    dragEnter(e.target);
+    dragEnter(e.target as HTMLElement);
   }
 
-  function handleMouseUp(e: MouseEvent) {
+  function handleMouseDone(e: MouseEvent) {
     e.stopPropagation();
     release();
   }
@@ -160,23 +160,21 @@
     grab(e.clientY, this);
   }
 
-  function grab(clientY, element) {
-    grabbed = element.parentNode;
-    ghost.innerHTML = grabbed.innerHTML;
-    offsetY = grabbed.getBoundingClientRect().y - clientY;
+  function grab(clientY: number, element: HTMLElement) {
+    grabbed = element.parentElement;
+    draggable.innerHTML = grabbed.innerHTML;
+    position.offsetY = grabbed.getBoundingClientRect().y - clientY;
     drag(clientY);
   }
 
-  // drag handler updates cursor position
-  function drag(clientY) {
+  function drag(clientY: number) {
     if (grabbed) {
-      mouseY = clientY;
-      layerY = ghost.parentNode.getBoundingClientRect().y;
+      position.mouseY = clientY;
+      position.draggableY = draggable.parentElement.getBoundingClientRect().y;
     }
   }
 
-  function dragEnter(target: EventTarget) {
-    // swap items in data
+  function dragEnter(target: HTMLElement) {
     if (grabbed && target != grabbed) {
       moveDatum(
         parseInt(grabbed.dataset.index),
@@ -185,17 +183,18 @@
     }
   }
 
-  // does the actual moving of items in data
-  function moveDatum(from, to) {
-    let temp = todos[from];
-    todos = [...todos.slice(0, from), ...todos.slice(from + 1)];
-    todos = [...todos.slice(0, to), temp, ...todos.slice(to)];
+  function moveDatum(from: number, to: number) {
+    const fromIndex = todos[from];
+    const temp = [...todos.slice(0, from), ...todos.slice(from + 1)];
+    todos = [...temp.slice(0, to), fromIndex, ...temp.slice(to)];
   }
 
   function release() {
     grabbed = null;
+    draggable.innerHTML = null;
 
-    // update TODO list
+    // update locally stored todos
+    state.setTodos(todos);
   }
 </script>
 
@@ -225,35 +224,30 @@
 </form>
 
 <ul
-  class:list={todos.length > 0}
   on:mousemove={handleMouseMove}
-  on:mouseup={handleMouseUp}
+  on:mouseup={handleMouseDone}
+  on:mouseleave={handleMouseDone}
+  class:list={todos.length > 0}
 >
   <li
-    bind:this={ghost}
-    id="ghost"
-    class={grabbed ? 'item haunting' : 'item'}
-    style={'top: ' + (mouseY + offsetY - layerY) + 'px'}
+    bind:this={draggable}
+    id="draggable"
+    class={grabbed ? 'active' : ''}
+    style={'top: ' +
+      (position.mouseY + position.offsetY - position.draggableY) +
+      'px'}
   />
 
   {#each todos as todo, index (todo.id)}
     <li
       in:fly={{ y: 4, duration: 150, easing: backOut }}
       out:fly={{ y: -2, duration: 150 }}
-      id={grabbed && todo.id == grabbed.dataset.id ? 'grabbed' : ''}
+      id={grabbed && todo.id === grabbed.dataset.id ? 'grabbed' : ''}
       class="item"
       data-index={index}
       data-id={todo.id}
       on:mouseenter={handleMouseEnter}
-      animate:flip={{ duration: 200 }}
     >
-      <Todo
-        {todo}
-        update={updateTodo}
-        remove={deleteTodo}
-        {setChecked}
-        index={index + 1}
-      />
       <span
         style={grabbed ? 'cursor: grabbing' : ''}
         on:mousedown={handleMouseDown}
@@ -267,6 +261,13 @@
           />
         </svg></span
       >
+      <Todo
+        {todo}
+        update={updateTodo}
+        remove={deleteTodo}
+        {setChecked}
+        index={index + 1}
+      />
     </li>
   {/each}
 </ul>
@@ -286,15 +287,19 @@
   }
 
   li {
-    display: flex;
     user-select: none;
+    position: relative;
   }
 
   span {
-    flex: 0;
     -webkit-app-region: no-drag;
     cursor: grab;
     align-self: center;
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    margin-top: -8px;
+    height: -webkit-fill-available;
   }
 
   button {
@@ -335,9 +340,9 @@
   }
 
   svg.grab {
-    width: 19px;
+    width: 16px;
     opacity: 0;
-    padding-left: 12px;
+    padding-right: 2px;
   }
 
   li:hover svg.grab {
@@ -357,7 +362,7 @@
     opacity: 0;
   }
 
-  #ghost {
+  #draggable {
     width: 100%;
     pointer-events: none;
     z-index: -1;
@@ -368,7 +373,7 @@
     background: var(--theme-primary-color);
   }
 
-  #ghost.haunting {
+  #draggable.active {
     z-index: 1;
     opacity: 0.7;
     box-shadow: 1px 1px 4px 0px rgb(0 0 0 / 20%);
