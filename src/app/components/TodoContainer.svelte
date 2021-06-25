@@ -10,7 +10,6 @@
   import { onMount } from 'svelte';
   import bridge, { Action, Channel } from '../bridge';
   import { trackEvent } from '../tracking';
-  import { flip } from 'svelte/animate';
 
   const { store } = state;
   let todos: TodoType[] = $store.todos;
@@ -133,6 +132,8 @@
     });
   });
 
+  // Draggable functionality
+  // @TODO clean this up. ideally add to it's own component
   let draggable: HTMLElement;
   let grabbed: HTMLElement;
   let position = {
