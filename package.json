@@ -54,6 +54,7 @@
     "electron-updater": "^4.3.9",
     "eslint": "^7.27.0",
     "icon-gen": "^2.1.0",
+    "inquirer": "^8.1.1",
     "jest": "^27.0.3",
     "jest-localstorage-mock": "^2.4.13",
     "jimp": "^0.16.1",

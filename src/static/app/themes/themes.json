@@ -14,6 +14,13 @@
     "accent": "#548687"
   },
   {
+    "primary": "#aa8f66",
+    "secondary": "#ffeedb",
+    "accent": "#ed9b40",
+    "title": "Carrot",
+    "file": "carrot.css"
+  },
+  {
     "title": "Champagne",
     "file": "champagne.css",
     "primary": "#Eddcd2",
@@ -56,6 +63,13 @@
     "accent": "#99c1de"
   },
   {
+    "primary": "#006ba6",
+    "secondary": "#Bde0fa",
+    "accent": "#Ca8d1c",
+    "title": "Maximal",
+    "file": "maximal.css"
+  },
+  {
     "title": "Mellow Yellow",
     "file": "mellow.css",
     "primary": "#F8f4e3",
@@ -77,10 +91,45 @@
     "accent": "#7f7f7f"
   },
   {
+    "primary": "#e36397",
+    "secondary": "#Ffffff",
+    "accent": "#E4b9ee",
+    "title": "Opera",
+    "file": "opera.css"
+  },
+  {
+    "primary": "#820933",
+    "secondary": "#d2fdff",
+    "accent": "#d84797",
+    "title": "Pantone",
+    "file": "pantone.css"
+  },
+  {
+    "primary": "#9a8f97",
+    "secondary": "#e9e3e6",
+    "accent": "#c3baba",
+    "title": "Platinum",
+    "file": "platinum.css"
+  },
+  {
+    "primary": "#fbfef9",
+    "secondary": "#191923",
+    "accent": "#0e79b2",
+    "title": "Raisin",
+    "file": "raisin.css"
+  },
+  {
     "title": "Seaweed",
     "file": "seaweed.css",
     "primary": "#77ACA2",
     "secondary": "#F0F0F0",
     "accent": "#468189"
+  },
+  {
+    "primary": "#808f87",
+    "secondary": "#e2efde",
+    "accent": "#afd0bf",
+    "title": "Xanadu",
+    "file": "xanadu.css"
   }
 ]
