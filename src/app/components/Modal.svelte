@@ -79,6 +79,8 @@
     .wrapper {
       width: 350px;
       height: fit-content;
+      max-height: 490px;
+      overflow-y: scroll;
     }
   }
 </style>
