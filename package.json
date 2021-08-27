@@ -1,79 +1,8 @@
 {
   "name": "today",
-  "productName": "Today",
-  "version": "1.2.0",
-  "author": {
-    "name": "Daniel Hayes",
-    "email": "hello@danhayes.me"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/daniel-hayes/today"
-  },
+  "packageManager": "yarn@3.0.1",
   "private": true,
-  "description": "A minimal 24 hour todo list",
-  "main": "app-dist/index.js",
-  "scripts": {
-    "postinstall": "electron-builder install-app-deps",
-    "build": "npm run before && npm run generate:css && cross-env webpack",
-    "build:prod": "npm run before && npm run generate:css && cross-env NODE_ENV=production webpack",
-    "dev": "webpack --watch",
-    "start": "npm run build && npm run electron & npm run dev",
-    "electron": "electron ./app-dist/index.js",
-    "clean": "rm -rf app-dist && rm -rf build-dist && rm -rf output",
-    "dist:sign": "./scripts/sign.sh && npm run build:prod && electron-builder -mwl",
-    "dist": "npm run build:prod && electron-builder -mwl",
-    "before": "npm run clean && npm run validate",
-    "generate:css": "node ./scripts/generateCSS.js",
-    "generate:icons": "node ./scripts/generateIcons.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "validate": "npm run validate:types && npm run validate:lint && npm run validate:svelte",
-    "validate:lint": "eslint ./src --ext .ts",
-    "validate:svelte": "svelte-check",
-    "validate:types": "tsc --noEmit --composite false --declarationMap false"
-  },
-  "devDependencies": {
-    "@testing-library/svelte": "^3.0.3",
-    "@tsconfig/svelte": "^1.0.13",
-    "@types/color-convert": "^2.0.0",
-    "@types/jest": "^26.0.23",
-    "@types/linkifyjs": "^2.1.3",
-    "@types/node-emoji": "^1.8.1",
-    "@types/uuid": "^8.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
-    "@typescript-eslint/parser": "^4.25.0",
-    "copy-webpack-plugin": "^9.0.0",
-    "cross-env": "^7.0.3",
-    "css-loader": "^5.2.6",
-    "dotenv": "^10.0.0",
-    "electron": "^13.1.2",
-    "electron-builder": "^22.11.7",
-    "electron-log": "^4.3.5",
-    "electron-notarize": "^1.0.0",
-    "electron-updater": "^4.3.9",
-    "eslint": "^7.27.0",
-    "icon-gen": "^2.1.0",
-    "inquirer": "^8.1.1",
-    "jest": "^27.0.3",
-    "jest-localstorage-mock": "^2.4.13",
-    "jimp": "^0.16.1",
-    "mini-css-extract-plugin": "^1.6.0",
-    "svelte": "^3.38.2",
-    "svelte-check": "^2.0.0",
-    "svelte-jester": "^1.6.0",
-    "svelte-loader": "^3.1.1",
-    "svelte-preprocess": "^4.7.3",
-    "ts-jest": "^27.0.1",
-    "ts-loader": "^9.2.2",
-    "typescript": "^4.3.2",
-    "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0"
-  },
-  "dependencies": {
-    "color-convert": "^2.0.1",
-    "linkifyjs": "^3.0.0-beta.3",
-    "node-emoji": "^1.10.0",
-    "uuid": "^8.3.2"
-  }
+  "workspaces": [
+    "packages/*"
+  ]
 }

@@ -1,7 +1,7 @@
 const convert = require('color-convert');
 const fs = require('fs');
 const path = require('path');
-const themePath = path.join(__dirname, '..', 'src/static/app/themes');
+const themePath = path.join(__dirname, '..', '/themes');
 const themes = require(`${themePath}/themes.json`);
 
 themes.forEach((theme) => {
