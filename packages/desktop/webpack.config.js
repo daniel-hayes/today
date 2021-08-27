@@ -34,6 +34,10 @@ const electronMain = {
       patterns: [
         { from: path.join(__dirname, '/src/static/app') },
         {
+          from: path.join(__dirname, '..', '/shared/themes'),
+          to: `${dist}/themes`,
+        },
+        {
           from: path.join(__dirname, '/src/static/build'),
           to: path.join(__dirname, '/build-dist'),
         },

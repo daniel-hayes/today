@@ -1,6 +1,6 @@
 import * as convert from 'color-convert';
 import type { Theme, Variant } from './store/state';
-const themes = require('../static/app/themes/themes.json');
+const themes = require('@today/shared/themes/themes.json');
 
 type ThemeJSON = Theme[];
 

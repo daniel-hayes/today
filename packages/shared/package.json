@@ -1,0 +1,8 @@
+{
+  "name": "@today/shared",
+  "private": true,
+  "devDependencies": {
+    "color-convert": "^2.0.1",
+    "inquirer": "^8.1.2"
+  }
+}
