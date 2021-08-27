@@ -2,8 +2,7 @@
 
 const fs = require('fs');
 const inquirer = require('inquirer');
-// @TODO update this path
-const themes = require('../src/static/app/themes/themes.json');
+const themes = require('../themes/themes.json');
 
 const inquire = () => {
   const questions = [
@@ -49,7 +48,7 @@ const inquire = () => {
     2
   );
 
-  fs.writeFileSync(`${__dirname}/../src/static/app/themes/themes.json`, data);
+  fs.writeFileSync(`${__dirname}/../themes/themes.json`, data);
 
   console.log(`themes.json updated with new theme`);
 })();
