@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const inquirer = require('inquirer');
-// @TODO fix this
+// @TODO update this path
 const themes = require('../src/static/app/themes/themes.json');
 
 const inquire = () => {
