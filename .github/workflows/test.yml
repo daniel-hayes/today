@@ -18,12 +18,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          cache: yarn
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      - name: Install npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+      - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm install
-      - run: npm run build:prod
-      - run: npm test
+        run: yarn install
+      - run: yarn build:prod
+      - run: yarn test
