@@ -27,4 +27,4 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: yarn install
       - run: yarn build:prod
-      - run: yarn test
+      - run: yarn workspace @today/desktop test
