@@ -42,13 +42,17 @@ body {
   background: var(--theme-primary-color);
   margin: 0;
   box-sizing: border-box;
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 body,
 input,
 button {
-  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
-    Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -75,6 +79,7 @@ input,
 button,
 p {
   -webkit-app-region: no-drag;
+  font-size: inherit;
 }
 
 input:focus,

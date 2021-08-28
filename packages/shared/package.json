@@ -3,6 +3,8 @@
   "private": true,
   "devDependencies": {
     "color-convert": "^2.0.1",
-    "inquirer": "^8.1.2"
+    "inquirer": "^8.1.2",
+    "svelte": "^3.42.4",
+    "uuid": "^8.3.2"
   }
 }

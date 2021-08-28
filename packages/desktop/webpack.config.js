@@ -5,6 +5,9 @@ const path = require('path');
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 const dist = path.join(__dirname, '/app-dist');
+const { version } = require('./package.json');
+
+// @TODO eventually replace this with vite config
 
 const electronMain = {
   target: 'electron-main',
@@ -38,6 +41,10 @@ const electronMain = {
           to: `${dist}/themes`,
         },
         {
+          from: path.join(__dirname, '..', '/shared/styles/global.css'),
+          to: dist,
+        },
+        {
           from: path.join(__dirname, '/src/static/build'),
           to: path.join(__dirname, '/build-dist'),
         },
@@ -53,6 +60,10 @@ const electronRenderer = {
     app: './src/app/main.ts',
   },
   resolve: {
+    mainFields: ['svelte'],
+    alias: {
+      svelte: path.resolve('node_modules', 'svelte'),
+    },
     extensions: ['.svelte', '.ts', '.js'],
   },
   output: {
@@ -76,7 +87,12 @@ const electronRenderer = {
               dev: !prod,
             },
             emitCss: true,
-            preprocess: SveltePreprocess(),
+            preprocess: SveltePreprocess({
+              replace: [
+                ['process.env.PLATFORM', JSON.stringify('DESKTOP')],
+                ['process.env.VERSION', JSON.stringify(version)],
+              ],
+            }),
           },
         },
       },

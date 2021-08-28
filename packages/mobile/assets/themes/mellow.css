@@ -1,0 +1,28 @@
+:root {
+  --theme-primary-color-h: 49;
+  --theme-primary-color-s: 60%;
+  --theme-primary-color-l: 93%;
+  --theme-primary-color: hsl(
+    var(--theme-primary-color-h),
+    var(--theme-primary-color-s),
+    var(--theme-primary-color-l)
+  );
+
+  --theme-secondary-color-h: 65;
+  --theme-secondary-color-s: 6%;
+  --theme-secondary-color-l: 42%;
+  --theme-secondary-color: hsl(
+    var(--theme-secondary-color-h),
+    var(--theme-secondary-color-s),
+    var(--theme-secondary-color-l)
+  );
+
+  --theme-accent-color-h: 56;
+  --theme-accent-color-s: 18%;
+  --theme-accent-color-l: 81%;
+  --theme-accent-color: hsl(
+    var(--theme-accent-color-h),
+    var(--theme-accent-color-s),
+    var(--theme-accent-color-l)
+  );
+}
