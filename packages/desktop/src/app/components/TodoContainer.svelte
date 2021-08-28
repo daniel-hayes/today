@@ -3,7 +3,8 @@
   import { backOut } from 'svelte/easing';
   import uuid from '../uuid';
   import Todo from './Todo.svelte';
-  import state, { Todo as TodoType } from '../store/state';
+  import state from '../store/state';
+  import type { Todo as TodoType } from '../store/state';
   import Settings from './Settings/Settings.svelte';
   import onInterval from '../onInterval';
   import { getColorsFromCSS, updateCSSVars, variants } from '../themes';

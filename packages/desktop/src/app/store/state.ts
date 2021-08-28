@@ -1,4 +1,5 @@
-import { writable, get, Writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 import { getThemes } from '../themes';
 import LocalStore from './localStore';
 
@@ -67,7 +68,11 @@ class State extends LocalStore<Store> {
   update(updatedState: Partial<Store>) {
     const expiration = this.getExpiration(updatedState.newDay);
 
-    this.store.update((previousState) => ({ ...previousState, ...updatedState, ...expiration }));
+    this.store.update((previousState) => ({
+      ...previousState,
+      ...updatedState,
+      ...expiration,
+    }));
   }
 
   // @TODO remove this

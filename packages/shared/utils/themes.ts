@@ -1,8 +1,6 @@
 import * as convert from 'color-convert';
 import type { Theme, Variant } from '../store/state';
-// import themes from '../themes/themes.json';
-
-const themes = [{}];
+import themes from '../themes/themes.json';
 
 type ThemeJSON = Theme[];
 
