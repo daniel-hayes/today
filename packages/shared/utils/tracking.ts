@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import LocalStore from './store/localStore';
+import LocalStore from '../store/localStore';
 
 export enum View {
   HOME = 'home',

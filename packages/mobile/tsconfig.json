@@ -4,6 +4,5 @@
     "types": ["svelte"],
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "scripts"],
-  "exclude": ["app-dist/*", "build-dist/*", "output"]
+  "include": ["src/**/*"]
 }

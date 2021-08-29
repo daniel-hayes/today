@@ -1,0 +1,42 @@
+{
+  "name": "@today/mobile",
+  "version": "1.0.0",
+  "scripts": {
+    "build:app": "vite build",
+    "build:android": "run-s build:app cap-run:android",
+    "build:ios": "NODE_ENV=production run-s build:app cap-run:ios",
+    "cap-run:android": "cap sync android && cap open android",
+    "cap-run:ios": "cap sync ios && cap open ios",
+    "dev:ios": "run-p dev:start cap-run:ios",
+    "dev:android": "run-p dev:start cap-run:android",
+    "dev:preview": "vite preview",
+    "dev:start": "run-p dev:vite",
+    "dev:vite": "vite --host --port 5001",
+    "validate": "svelte-check",
+    "generate:icons": "cordova-res ios --skip-config --copy"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.19",
+    "@tsconfig/svelte": "^2.0.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "prettier-plugin-svelte": "^2.2.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "svelte": "^3.37.0",
+    "svelte-preprocess": "^4.7.3",
+    "typescript": "^4.2.4",
+    "vite": "^2.2.3",
+    "vite-plugin-compression": "^0.2.5",
+    "vite-tsconfig-paths": "^3.3.10"
+  },
+  "dependencies": {
+    "@capacitor/android": "^3.0.1",
+    "@capacitor/cli": "^3.0.0",
+    "@capacitor/core": "^3.0.0",
+    "@capacitor/haptics": "^1.0.2",
+    "@capacitor/ios": "^3.0.1",
+    "@capacitor/splash-screen": "^1.1.1",
+    "@capacitor/status-bar": "^1.0.2",
+    "@today/shared": "workspace:*"
+  }
+}

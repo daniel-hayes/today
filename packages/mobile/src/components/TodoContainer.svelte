@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Haptics, ImpactStyle } from '@capacitor/haptics';
   import { fly } from 'svelte/transition';
   import { backOut } from 'svelte/easing';
   import uuid from '@today/shared/utils/uuid';
@@ -14,7 +15,10 @@
   } from '@today/shared/utils/themes';
   import { onMount } from 'svelte';
   import { trackEvent } from '@today/shared/utils/tracking';
-  import bridge, { Action, Channel } from '../bridge';
+
+  const hapticsImpactLight = async () => {
+    await Haptics.impact({ style: ImpactStyle.Light });
+  };
 
   const { store } = state;
   let todos: TodoType[] = $store.todos;
@@ -102,39 +106,6 @@
         updateCSSVars(swatch, storeOrDOMHexValue);
       });
     }
-
-    bridge(Channel.SHORTCUT, (action: Action) => {
-      if (action === Action.DELETE) {
-        if (document.activeElement) {
-          const checkboxIndex = (document.activeElement as HTMLInputElement)
-            .dataset.checkboxIndex;
-          const checkboxTextIndex = (document.activeElement as HTMLInputElement)
-            .dataset.checkboxTextIndex;
-
-          if (checkboxIndex) {
-            deleteTodo(document.activeElement.id);
-          }
-
-          if (checkboxTextIndex) {
-            const checkbox = document.querySelector(
-              `[data-checkbox-index="${checkboxTextIndex}"]`
-            );
-            (checkbox as HTMLInputElement).focus();
-            deleteTodo(document.activeElement.id);
-          }
-        }
-      }
-
-      if (action === Action.CLEAR) {
-        const unchecked = $store.todos.filter((todo) => !todo.checked);
-        state.setTodos(unchecked);
-        todos = unchecked;
-      }
-
-      if (action === Action.RESET) {
-        clearTodos();
-      }
-    });
   });
 
   // Draggable functionality
@@ -142,50 +113,93 @@
   let draggable: HTMLElement;
   let grabbed: HTMLElement;
   let position = {
-    mouseY: 0,
+    y: 0,
     offsetY: 0,
     draggableY: 0, // distance from top of list to top of client
   };
 
-  function handleMouseMove(e: MouseEvent) {
+  function handleMouseMove(e: TouchEvent) {
     e.stopPropagation();
-    drag(e.clientY);
+
+    const listContainer = e.currentTarget as HTMLElement;
+    const firstListItem = listContainer.children[0];
+    const lastListItem = listContainer.children[
+      listContainer.children.length - 1
+    ] as HTMLElement;
+    let position = 0;
+
+    // get the position of all list items to determine where "draggable" is relative to other items
+    for (let i = 0; i < listContainer.children.length; i++) {
+      const listItem = listContainer.children[i] as HTMLElement;
+      const draggablePosition = draggable.getBoundingClientRect();
+      const listItemPosition = listItem.getBoundingClientRect();
+
+      // if you are between list items, get the index
+      if (
+        draggablePosition.y > listItemPosition.top &&
+        draggablePosition.y < listItemPosition.bottom
+      ) {
+        position = parseInt(listItem.dataset.index);
+      } else if (
+        // if you are before the entire list, set it to the first position
+        draggablePosition.y < firstListItem.getBoundingClientRect().top
+      ) {
+        position = 0;
+      } else if (
+        // if you are after the entire list, set it to the last position
+        draggablePosition.y > lastListItem.getBoundingClientRect().bottom
+      ) {
+        position = parseInt(lastListItem.dataset.index);
+      }
+    }
+
+    drag(e.touches[0].clientY);
+
+    if (grabbed) {
+      moveDatum(parseInt(grabbed.dataset.index), position);
+    }
   }
 
-  function handleMouseEnter(e: MouseEvent) {
-    e.stopPropagation();
-    dragEnter(e.target as HTMLElement);
-  }
+  // @TODO clean this up
+  var mouseIsDown = false;
+  var idTimeout;
 
-  function handleMouseDone(e: MouseEvent) {
+  function handleMouseDone(e: TouchEvent) {
     e.stopPropagation();
+
+    clearTimeout(idTimeout);
+    mouseIsDown = false;
+
     release();
   }
 
-  function handleMouseDown(e: MouseEvent) {
-    grab(e.clientY, this);
+  function handleMouseDown(e: TouchEvent) {
+    mouseIsDown = true;
+    idTimeout = setTimeout(() => {
+      if (mouseIsDown) {
+        hapticsImpactLight();
+
+        grab(e.touches[0].clientY, this);
+      }
+      // 500ms seems to be default haptic feedback duration on iOS
+    }, 500);
   }
 
   function grab(clientY: number, element: HTMLElement) {
-    grabbed = element.parentElement;
+    grabbed = element;
     draggable.innerHTML = grabbed.innerHTML;
     position.offsetY = grabbed.getBoundingClientRect().y - clientY;
+
+    // prevent DOM scrolling on the rest of the page
+    document.body.style.overflow = 'hidden';
+
     drag(clientY);
   }
 
   function drag(clientY: number) {
     if (grabbed) {
-      position.mouseY = clientY;
+      position.y = clientY;
       position.draggableY = draggable.parentElement.getBoundingClientRect().y;
-    }
-  }
-
-  function dragEnter(target: HTMLElement) {
-    if (grabbed && target != grabbed) {
-      moveDatum(
-        parseInt(grabbed.dataset.index),
-        parseInt(target.dataset.index)
-      );
     }
   }
 
@@ -199,6 +213,9 @@
     grabbed = null;
     draggable.innerHTML = null;
 
+    // allow DOM scrolling again
+    document.body.style.overflow = 'auto';
+
     // update locally stored todos
     state.setTodos(todos);
   }
@@ -209,6 +226,8 @@
     <link href={`themes/${$store.theme.file}`} rel="stylesheet" />
   {/if}
 </svelte:head>
+
+<Settings />
 
 <form on:submit|preventDefault={addTodo}>
   <button type="submit" tabindex="-1">
@@ -230,9 +249,9 @@
 </form>
 
 <ul
-  on:mousemove={handleMouseMove}
-  on:mouseup={handleMouseDone}
-  on:mouseleave={handleMouseDone}
+  on:touchmove={handleMouseMove}
+  on:touchend={handleMouseDone}
+  on:touchcancel={handleMouseDone}
   class:list={todos.length > 0}
 >
   <li
@@ -240,7 +259,7 @@
     id="draggable"
     class={grabbed ? 'active' : ''}
     style={'top: ' +
-      (position.mouseY + position.offsetY - position.draggableY) +
+      (position.y + position.offsetY - position.draggableY) +
       'px'}
   />
 
@@ -252,21 +271,8 @@
       class="item"
       data-index={index}
       data-id={todo.id}
-      on:mouseenter={handleMouseEnter}
+      on:touchstart={handleMouseDown}
     >
-      <span
-        style={grabbed ? 'cursor: grabbing' : ''}
-        on:mousedown={handleMouseDown}
-        ><svg
-          class="grab"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-          />
-        </svg></span
-      >
       <Todo
         {todo}
         update={updateTodo}
@@ -278,34 +284,23 @@
   {/each}
 </ul>
 
-<Settings />
-
 <style>
   form {
     position: relative;
     text-align: center;
     width: 100%;
+    margin-bottom: 10px;
   }
 
   ul {
     width: 100%;
     position: relative;
+    margin-bottom: 12px;
   }
 
   li {
     user-select: none;
     position: relative;
-  }
-
-  span {
-    -webkit-app-region: no-drag;
-    cursor: grab;
-    align-self: center;
-    position: absolute;
-    left: -18px;
-    top: 50%;
-    margin-top: -8px;
-    height: -webkit-fill-available;
   }
 
   button {
@@ -334,29 +329,12 @@
     opacity: 0.5;
   }
 
-  input:hover,
-  input:active,
-  input:focus-visible {
-    outline: none;
+  form:focus-within {
     background: hsl(
       var(--theme-primary-color-h),
       var(--theme-primary-color-s),
       calc(var(--theme-primary-color-l) + 5%)
     );
-  }
-
-  svg.grab {
-    width: 16px;
-    opacity: 0;
-    padding-right: 2px;
-  }
-
-  li:hover svg.grab {
-    opacity: 0.3;
-  }
-
-  li:hover svg.grab:hover {
-    opacity: 1;
   }
 
   svg {

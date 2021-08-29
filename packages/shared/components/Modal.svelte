@@ -4,15 +4,6 @@
   import Hr from './Hr.svelte';
   export let isOpen = false;
   export let close: () => void;
-
-  function keydown(e: KeyboardEvent) {
-    e.stopPropagation();
-    if (e.key === 'Escape') {
-      close();
-    }
-  }
-
-  document.addEventListener('keydown', keydown);
 </script>
 
 <slot name="trigger" />

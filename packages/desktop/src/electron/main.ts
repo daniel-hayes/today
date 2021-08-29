@@ -24,7 +24,7 @@ function createMainWindow() {
     width: 500,
     frame: process.platform !== 'darwin',
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.cjs'),
     },
   });
 

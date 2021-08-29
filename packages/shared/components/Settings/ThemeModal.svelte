@@ -1,10 +1,11 @@
 <script lang="ts">
   import Modal from '../Modal.svelte';
-  import { getThemes, resetCustomThemeFromDOM } from '../../themes';
+  import { getThemes, resetCustomThemeFromDOM } from '../../utils/themes';
   import Hr from '../Hr.svelte';
-  import state, { Theme } from '../../store/state';
+  import state from '../../store/state';
+  import type { Theme } from '../../store/state';
   import CustomThemePicker from './CustomThemePicker.svelte';
-  import { trackEvent, trackView, View } from '../../tracking';
+  import { trackEvent, trackView, View } from '../../utils/tracking';
 
   const themes = getThemes();
   const { store } = state;
@@ -57,7 +58,9 @@
     {:else}
       <ul>
         {#each themes as theme}
-          <li><button on:click={() => loadTheme(theme)}>{theme.title}</button></li>
+          <li>
+            <button on:click={() => loadTheme(theme)}>{theme.title}</button>
+          </li>
         {/each}
         <li><button on:click={enableCustomPicker}>Custom</button></li>
       </ul>

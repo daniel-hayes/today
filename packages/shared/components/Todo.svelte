@@ -1,6 +1,7 @@
 <script lang="ts">
   import linkifyHtml from 'linkifyjs/html';
   import emoji from 'node-emoji';
+  import getPlatform, { Platforms } from '../utils/getPlatform';
   import type { Todo } from '../store/state';
   import Meatballs from './Meatballs.svelte';
 
@@ -12,13 +13,24 @@
 
   let checkbox: HTMLElement;
   let text: string = transform(todo.text);
+  const platform = getPlatform(process.env.PLATFORM);
 
   let active = todo.checked ?? false;
 
   function handleBlur(e: FocusEvent) {
+    if (platform === Platforms.MOBILE) {
+      document.body.style.webkitUserSelect = '';
+      document.body.style.userSelect = '';
+    }
+
     let updatedText = (e.currentTarget as HTMLElement).innerText;
     text = transform(updatedText);
     update(todo.id, updatedText);
+  }
+
+  function handleFocus() {
+    document.body.style.webkitUserSelect = 'auto';
+    document.body.style.userSelect = 'auto';
   }
 
   function transform(text: string) {
@@ -37,7 +49,7 @@
   }
 </script>
 
-<div>
+<div tabindex="0">
   <label class:active>
     <input
       id={todo.id}
@@ -59,6 +71,7 @@
     tabindex="-1"
     contenteditable
     on:blur={handleBlur}
+    on:focus={platform === Platforms.MOBILE ? handleFocus : () => null}
   >
     {@html text}
   </p>
@@ -76,9 +89,9 @@
     padding: 4px 10px;
     border-radius: 4px;
     position: relative;
+    outline: none;
   }
 
-  div:hover,
   div:focus-within {
     background: hsl(
       var(--theme-primary-color-h),
@@ -91,9 +104,6 @@
     display: none;
   }
 
-  /* only show additional menu items if active */
-  div:hover span,
-  div:active span,
   div:focus-within span {
     display: block;
   }

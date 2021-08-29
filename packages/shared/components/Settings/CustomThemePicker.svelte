@@ -1,8 +1,13 @@
 <script lang="ts">
-  import { updateCSSVars, getColorsFromCSS, variants } from '../../themes';
-  import state, { Variant } from '../../store/state';
+  import {
+    updateCSSVars,
+    getColorsFromCSS,
+    variants,
+  } from '../../utils/themes';
+  import state from '../../store/state';
+  import type { Variant } from '../../store/state';
   import { onMount } from 'svelte';
-  import { trackView, View } from '../../tracking';
+  import { trackView, View } from '../../utils/tracking';
 
   const currentCSSColors = getColorsFromCSS();
   const { store } = state;
@@ -10,7 +15,8 @@
   onMount(() => {
     const customVariants = {} as { [key in Variant]: string };
     variants.forEach((swatch) => {
-      const storeOrDOMHexValue = $store.theme[swatch] ?? currentCSSColors[swatch].hex;
+      const storeOrDOMHexValue =
+        $store.theme[swatch] ?? currentCSSColors[swatch].hex;
       // update DOM to include custom vars
       updateCSSVars(swatch, storeOrDOMHexValue);
       // build object to update store
