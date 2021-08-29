@@ -7,6 +7,7 @@ afterPack: scripts/afterPack.js
 
 directories:
   output: output
+  buildResources: build-dist
 
 files:
   - app-dist/**/*
