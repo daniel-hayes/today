@@ -1,19 +1,21 @@
 <script lang="ts">
+  import { Haptics, ImpactStyle } from '@capacitor/haptics';
   import { fly } from 'svelte/transition';
   import { backOut } from 'svelte/easing';
-  import uuid from '../uuid';
+  import uuid from '@today/shared/utils/uuid';
   import Todo from '@today/shared/components/Todo.svelte';
-  import state from '../store/state';
-  import type { Todo as TodoType } from '../store/state';
+  import state from '@today/shared/store/state';
+  import type { Todo as TodoType } from '@today/shared/store/state';
   import Settings from './Settings.svelte';
-  import onInterval from '../onInterval';
-  import { getColorsFromCSS, updateCSSVars, variants } from '../themes';
+  import onInterval from '@today/shared/utils/onInterval';
+  import {
+    getColorsFromCSS,
+    updateCSSVars,
+    variants,
+  } from '@today/shared/utils/themes';
   import { onMount } from 'svelte';
-  import { trackEvent } from '../tracking';
+  import { trackEvent } from '@today/shared/utils/tracking';
 
-  import { Haptics, ImpactStyle } from '@capacitor/haptics';
-
-  // @TODO move this
   const hapticsImpactLight = async () => {
     await Haptics.impact({ style: ImpactStyle.Light });
   };

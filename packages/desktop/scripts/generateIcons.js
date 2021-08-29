@@ -11,7 +11,7 @@ const directories = {
   windows: 'windows',
 };
 
-const entry = path.join(__dirname, '..', '/src/static/build');
+const entry = path.join(__dirname, '..', '/src/resources');
 const input = `${entry}/original-icon.png`;
 const output = `${entry}/icons`;
 const png = `${output}/${directories.png}/`;

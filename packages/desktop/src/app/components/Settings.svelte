@@ -3,7 +3,7 @@
   import SettingsContent from '@today/shared/components/Settings/SettingsModal/SettingsContent.svelte';
   import Modal from '@today/shared/components/Modal.svelte';
   import { trackView, View } from '@today/shared/utils/tracking';
-  import bridge, { Action, Channel } from '../../bridge';
+  import bridge, { Action, Channel } from '../bridge';
 
   let isOpen = false;
 

@@ -28,7 +28,7 @@ const config = {
           dest: `${PACKAGE_ROOT}/app-dist`,
         },
         {
-          src: `${PACKAGE_ROOT}/src/static/build`,
+          src: `${PACKAGE_ROOT}/src/resources`,
           dest: `${PACKAGE_ROOT}/build-dist`,
         },
       ],
@@ -41,6 +41,7 @@ const config = {
     },
   },
   build: {
+    // only need on dev
     sourcemap: true,
     target: `chrome91`,
     outDir: `${PACKAGE_ROOT}/app-dist`,

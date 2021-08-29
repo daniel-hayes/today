@@ -1,16 +1,20 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { backOut } from 'svelte/easing';
-  import uuid from '../uuid';
-  import Todo from './Todo.svelte';
-  import state from '../store/state';
-  import type { Todo as TodoType } from '../store/state';
-  import Settings from './Settings/Settings.svelte';
-  import onInterval from '../onInterval';
-  import { getColorsFromCSS, updateCSSVars, variants } from '../themes';
+  import uuid from '@today/shared/utils/uuid';
+  import Todo from '@today/shared/components/Todo.svelte';
+  import state from '@today/shared/store/state';
+  import type { Todo as TodoType } from '@today/shared/store/state';
+  import Settings from './Settings.svelte';
+  import onInterval from '@today/shared/utils/onInterval';
+  import {
+    getColorsFromCSS,
+    updateCSSVars,
+    variants,
+  } from '@today/shared/utils/themes';
   import { onMount } from 'svelte';
+  import { trackEvent } from '@today/shared/utils/tracking';
   import bridge, { Action, Channel } from '../bridge';
-  import { trackEvent } from '../tracking';
 
   const { store } = state;
   let todos: TodoType[] = $store.todos;

@@ -1,6 +1,7 @@
 <script lang="ts">
   import linkifyHtml from 'linkifyjs/html';
   import emoji from 'node-emoji';
+  import getPlatform, { Platforms } from '../utils/getPlatform';
   import type { Todo } from '../store/state';
   import Meatballs from './Meatballs.svelte';
 
@@ -12,12 +13,15 @@
 
   let checkbox: HTMLElement;
   let text: string = transform(todo.text);
+  const platform = getPlatform(process.env.PLATFORM);
 
   let active = todo.checked ?? false;
 
   function handleBlur(e: FocusEvent) {
-    document.body.style.webkitUserSelect = '';
-    document.body.style.userSelect = '';
+    if (platform === Platforms.MOBILE) {
+      document.body.style.webkitUserSelect = '';
+      document.body.style.userSelect = '';
+    }
 
     let updatedText = (e.currentTarget as HTMLElement).innerText;
     text = transform(updatedText);
@@ -67,7 +71,7 @@
     tabindex="-1"
     contenteditable
     on:blur={handleBlur}
-    on:focus={handleFocus}
+    on:focus={platform === Platforms.MOBILE ? handleFocus : () => null}
   >
     {@html text}
   </p>

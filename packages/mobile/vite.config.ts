@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite';
-import { getAliases } from 'vite-aliases';
+import path from 'path';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import preprocess from 'svelte-preprocess';
+import copy from 'rollup-plugin-copy';
 import { version } from './package.json';
 
-const aliases = getAliases();
+const SHARED_ROOT = path.join(__dirname, '..', 'shared');
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     svelte({
@@ -17,12 +17,22 @@ export default defineConfig({
         ],
       }),
     }),
+    copy({
+      targets: [
+        {
+          src: `${SHARED_ROOT}/themes`,
+          dest: './public/',
+        },
+      ],
+    }),
   ],
-  publicDir: './assets/',
   build: {
-    outDir: './public/',
+    outDir: './public',
+    emptyOutDir: false,
   },
-  resolve: {
-    alias: aliases,
+  server: {
+    fs: {
+      strict: true,
+    },
   },
 });

@@ -1,4 +1,5 @@
 import App from './components/App.svelte';
+import '@today/shared/styles/global.css';
 
 // import { StatusBar, Style } from '@capacitor/status-bar';
 
