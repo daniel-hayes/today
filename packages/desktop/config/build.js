@@ -8,8 +8,6 @@ const { dirname } = require('path');
 
 const mode = (process.env.NODE_ENV = process.env.NODE_ENV || 'production');
 
-console.log(mode);
-
 const packagesConfigs = [
   'config/vite.renderer.config.ts',
   'config/vite.electron.config.ts',

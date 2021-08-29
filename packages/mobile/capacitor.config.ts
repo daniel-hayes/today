@@ -1,7 +1,5 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
-console.log(process.env);
-
 const config: CapacitorConfig = {
   appId: 'io.todaylist.today',
   appName: 'Today',
