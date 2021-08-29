@@ -38,7 +38,12 @@
 </main>
 
 <style>
+  :global(body) {
+    height: calc(100% - 20px);
+  }
+
   main {
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;

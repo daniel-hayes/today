@@ -22,7 +22,8 @@ function createMainWindow() {
     minHeight: 130,
     maxWidth: 600,
     width: 500,
-    frame: process.platform !== 'darwin',
+    titleBarStyle: 'hiddenInset',
+    fullscreen: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
     },
