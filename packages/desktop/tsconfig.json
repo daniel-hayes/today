@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "types": ["svelte", "jest"],
+    "types": ["svelte"],
     "resolveJsonModule": true
   },
   "include": ["src/**/*", "scripts"],
