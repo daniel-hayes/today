@@ -32,13 +32,12 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: yarn install
       - run: yarn workspace @today/shared test
-      - run: yarn workspace @today/mobile build:app
-      - run: yarn workspace @today/desktop build:prod
       - name: Release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
           package_root: './packages/desktop'
-          skip_build: true
+          skip_build: false
+          build_script_name: 'build:prod'
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
