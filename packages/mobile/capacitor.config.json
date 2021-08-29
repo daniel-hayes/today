@@ -9,9 +9,11 @@
       "launchShowDuration": 0
     }
   },
+  "ios": {
+    "scheme": "Today"
+  },
   "cordova": {},
   "server": {
-    "url": "http://192.168.0.15:5001/",
     "cleartext": true
   }
 }

@@ -509,6 +509,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@capacitor/splash-screen@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@capacitor/splash-screen@npm:1.1.1"
+  peerDependencies:
+    "@capacitor/core": ^3.0.0
+  checksum: bcb36162f4cdb9e036358a3e6ef614b24f5bc373a0a3f796dba6c44f02a71bf14b9d0fde8f752ca2549ec9b86cf5b5c879463604a46233140df25812f590100d
+  languageName: node
+  linkType: hard
+
 "@capacitor/status-bar@npm:^1.0.2":
   version: 1.0.2
   resolution: "@capacitor/status-bar@npm:1.0.2"
@@ -1565,6 +1574,7 @@ __metadata:
     "@capacitor/core": ^3.0.0
     "@capacitor/haptics": ^1.0.2
     "@capacitor/ios": ^3.0.1
+    "@capacitor/splash-screen": ^1.1.1
     "@capacitor/status-bar": ^1.0.2
     "@sveltejs/vite-plugin-svelte": ^1.0.0-next.19
     "@today/shared": "workspace:*"
