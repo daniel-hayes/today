@@ -1,3 +1,5 @@
+# This file is intended to be released on the Mac store
+
 appId: io.todaylist.today
 productName: Today
 artifactName: Today-${version}.${ext}
@@ -17,11 +19,21 @@ mac:
   hardenedRuntime: true
   entitlements: build-dist/resources/entitlements.mac.plist
   entitlementsInherit: build-dist/resources/entitlements.mac.plist
+  provisioningProfile: build-dist/resources/embedded.provisionprofile
   gatekeeperAssess: false
   target:
     - dmg
     - pkg
     - zip
+    - mas
+
+mas:
+  hardenedRuntime: false
+  provisioningProfile: build-dist/resources/embedded.provisionprofile
+  entitlements: build-dist/resources/entitlements.mas.plist
+  entitlementsInherit: build-dist/resources/entitlements.mas.inherit.plist
+  gatekeeperAssess: false
+  asarUnpack: []
 
 dmg:
   icon: build-dist/resources/icons/mac/icon.icns
