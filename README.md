@@ -8,6 +8,9 @@
 
 > The list clears every 24 hours which will allow you to focus on your daily tasks without letting them pile up.
 
+
+### Today - Desktop App
+
 #### Built with Svelte + Electron + Typescript
 
 <div style="background: blue;">
@@ -18,19 +21,55 @@
 ## Development
 
 ```
-npm install
+yarn install
 ```
 
 Run locally in watch mode:
 
 ```
-npm run start
+# From root
+yarn workspace @today/desktop start
+
+# From /packages/desktop
+yarn start
 ```
 
 Build app:
 
 ```
-npm run build # or `build:prod`
+# From root
+yarn workspace @today/desktop build # or `build:prod`
+
+# From /packages/desktop
+yarn build # or `build:prod`
+```
+
+### Today - iOS App
+
+#### Built with Svelte + Capacitor + Typescript
+
+```
+yarn install
+```
+
+Run locally in watch mode:
+
+```
+# From root
+yarn workspace @today/mobile dev:ios
+
+# From /packages/mobile
+yarn dev:ios
+```
+
+Build app:
+
+```
+# From root
+yarn workspace @today/mobile build:ios
+
+# From /packages/mobile
+yarn build:ios
 ```
 
 #### Custom themes
