@@ -10,20 +10,28 @@ directories:
 
 files:
   - app-dist/**/*
-  # - embedded.provisionprofile
 
 mac:
   icon: build-dist/resources/icons/mac/icon.icns
   category: public.app-category.productivity
   hardenedRuntime: true
   entitlements: build-dist/resources/entitlements.mac.plist
-  # entitlementsInherit: build/entitlements.mac.plist
-  # provisioningProfile: embedded.provisionprofile
+  entitlementsInherit: build-dist/resources/entitlements.mac.plist
+  provisioningProfile: build-dist/resources/embedded.provisionprofile
   gatekeeperAssess: false
   target:
     - dmg
     - pkg
     - zip
+    - mas
+
+mas:
+  hardenedRuntime: false
+  provisioningProfile: build-dist/resources/embedded.provisionprofile
+  entitlements: build-dist/resources/entitlements.mas.plist
+  entitlementsInherit: build-dist/resources/entitlements.mas.inherit.plist
+  gatekeeperAssess: false
+  asarUnpack: []
 
 dmg:
   icon: build-dist/resources/icons/mac/icon.icns
