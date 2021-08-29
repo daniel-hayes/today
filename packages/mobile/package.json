@@ -1,10 +1,10 @@
 {
   "name": "@today/mobile",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "build:app": "vite build",
     "build:android": "run-s build:app cap-run:android",
-    "build:ios": "run-s build:app cap-run:ios",
+    "build:ios": "NODE_ENV=production run-s build:app cap-run:ios",
     "cap-run:android": "cap sync android && cap open android",
     "cap-run:ios": "cap sync ios && cap open ios",
     "dev:ios": "run-p dev:start cap-run:ios",
