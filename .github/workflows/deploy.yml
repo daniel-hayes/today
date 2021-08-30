@@ -33,11 +33,11 @@ jobs:
         run: yarn install
       - run: yarn workspace @today/shared test
       - run: cd packages/desktop
+      - run: yarn build:prod
       - name: Release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
-          skip_build: false
-          build_script_name: 'build:prod'
+          skip_build: true
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
