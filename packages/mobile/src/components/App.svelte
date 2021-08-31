@@ -1,7 +1,6 @@
 <script lang="ts">
   import TodoContainer from './TodoContainer.svelte';
   import { onDestroy, onMount } from 'svelte';
-  import { trackView, View } from '@today/shared/utils/tracking';
 
   // setup listeners
   const blur = (e: KeyboardEvent) => {
@@ -16,8 +15,6 @@
 
   onMount(() => {
     document.addEventListener('keydown', blur);
-
-    trackView(View.HOME);
   });
 
   onDestroy(() => {

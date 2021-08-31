@@ -3,7 +3,6 @@
   import ThemeModal from '../ThemeModal.svelte';
   import state from '../../../store/state';
   import { dateTimeDifference } from '../../../utils/time';
-  import { trackEvent } from '../../../utils/tracking';
   import getPlatform, { Platforms } from '../../../utils/getPlatform';
 
   const { store } = state;
@@ -15,8 +14,6 @@
     if (element.value) {
       const newDay = element.value as `${string}:${string}`;
       state.update({ newDay });
-
-      trackEvent('Settings', 'newDay');
     }
   }
 

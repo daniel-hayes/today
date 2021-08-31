@@ -7,7 +7,6 @@
   import state from '../../store/state';
   import type { Variant } from '../../store/state';
   import { onMount } from 'svelte';
-  import { trackView, View } from '../../utils/tracking';
 
   const currentCSSColors = getColorsFromCSS();
   const { store } = state;
@@ -24,8 +23,6 @@
     });
 
     state.update({ theme: { title: 'Custom', ...customVariants } });
-
-    trackView(View.CUSTOM_THEME_PICKER);
   });
 </script>
 

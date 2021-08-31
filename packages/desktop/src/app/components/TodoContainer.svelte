@@ -13,7 +13,6 @@
     variants,
   } from '@today/shared/utils/themes';
   import { onMount } from 'svelte';
-  import { trackEvent } from '@today/shared/utils/tracking';
   import bridge, { Action, Channel } from '../bridge';
 
   const { store } = state;
@@ -44,8 +43,6 @@
       ];
       inputValue = '';
       state.setTodos(todos);
-
-      trackEvent('Form', 'submit');
     }
   }
 
@@ -59,8 +56,6 @@
       return todo;
     });
     state.setTodos(updatedTodos);
-
-    trackEvent('Todo', 'update');
   }
 
   const setChecked = (id: string, checked: boolean) => {
@@ -73,8 +68,6 @@
       return todo;
     });
     state.setTodos(updatedTodos);
-
-    trackEvent('Todo', 'check');
   };
 
   function deleteTodo(id: string) {
@@ -82,8 +75,6 @@
     todos.splice(index, 1);
     todos = todos;
     state.setTodos(todos);
-
-    trackEvent('Todo', 'delete');
   }
 
   // call on first render

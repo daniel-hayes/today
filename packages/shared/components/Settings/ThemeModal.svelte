@@ -5,7 +5,6 @@
   import state from '../../store/state';
   import type { Theme } from '../../store/state';
   import CustomThemePicker from './CustomThemePicker.svelte';
-  import { trackEvent, trackView, View } from '../../utils/tracking';
 
   const themes = getThemes();
   const { store } = state;
@@ -18,8 +17,6 @@
     selectedTheme = theme;
     state.update({ theme: selectedTheme });
     resetCustomThemeFromDOM();
-
-    trackEvent('Theme', 'load');
   }
 
   function enableCustomPicker() {
@@ -28,10 +25,6 @@
 
   function toggleModal() {
     isOpen = !isOpen;
-
-    if (isOpen) {
-      trackView(View.THEME_MODAL);
-    }
   }
 </script>
 

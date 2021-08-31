@@ -1,6 +1,5 @@
 <script lang="ts">
   import Modal from '@today/shared/components/Modal.svelte';
-  import { trackView, View } from '@today/shared/utils/tracking';
   import Cog from '@today/shared/components/Settings/Cog.svelte';
   import SettingsHeader from '@today/shared/components/Settings/SettingsModal/SettingsHeader.svelte';
   import SettingsContent from '@today/shared/components/Settings/SettingsModal/SettingsContent.svelte';
@@ -9,10 +8,6 @@
 
   function handleClick() {
     isOpen = !isOpen;
-
-    if (isOpen) {
-      trackView(View.SETTINGS_MODAL);
-    }
   }
 </script>
 
