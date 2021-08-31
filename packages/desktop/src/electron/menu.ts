@@ -24,18 +24,10 @@ const MenuBuilder = function (
               label: 'Settings',
               accelerator: 'CommandOrControl+,',
               click() {
+                window.show();
                 window.webContents.send(Channel.SHORTCUT, Action.SETTINGS);
               },
             },
-            // {
-            //   label: 'Float Above All Windows',
-            //   type: 'checkbox',
-            //   checked: true,
-            //   // accelerator: 'CommandOrControl+,',
-            //   // click() {
-            //   //   window.webContents.send('SHORTCUT', 'SETTINGS');
-            //   // },
-            // },
           ],
         },
         {
@@ -109,6 +101,7 @@ const MenuBuilder = function (
           label: 'New Todo',
           accelerator: 'CommandOrControl+N',
           click() {
+            window.show();
             window.webContents.send(Channel.SHORTCUT, Action.NEW);
           },
         },
@@ -140,6 +133,7 @@ const MenuBuilder = function (
           label: 'Remove completed items',
           accelerator: 'CommandOrControl+Shift+D',
           click() {
+            window.show();
             window.webContents.send(Channel.SHORTCUT, Action.CLEAR);
           },
         },
@@ -147,6 +141,7 @@ const MenuBuilder = function (
           label: 'Remove all items',
           accelerator: 'CommandOrControl+Shift+R',
           click() {
+            window.show();
             window.webContents.send(Channel.SHORTCUT, Action.RESET);
           },
         },
@@ -169,6 +164,7 @@ const MenuBuilder = function (
             label: `Focus on ${label} Todo`,
             accelerator: `CommandOrControl+${i + 1}`,
             click() {
+              window.show();
               window.webContents.send(Channel.SHORTCUT, label.toUpperCase());
             },
           })),

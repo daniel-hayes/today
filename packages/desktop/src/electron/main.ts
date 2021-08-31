@@ -11,9 +11,6 @@ log.info('App starting');
 
 const isProd = process.env.NODE_ENV === 'production';
 
-// @TODO implment this
-const shouldFloat = process.env.FLOATING_WINDOW;
-
 let mainWindow: BrowserWindow | null;
 
 function createMainWindow() {
@@ -31,10 +28,6 @@ function createMainWindow() {
 
   window.loadFile(path.join(__dirname, 'index.html'));
 
-  if (shouldFloat) {
-    window.setAlwaysOnTop(true, 'floating', 1);
-  }
-
   if (!isProd) {
     window.webContents.openDevTools();
   }
@@ -44,6 +37,23 @@ function createMainWindow() {
     shell.openExternal(url);
     return { action: 'deny' };
   });
+
+  let willQuitApp = false;
+
+  window.on('close', (e) => {
+    if (willQuitApp) {
+      /* the user tried to quit the app */
+      mainWindow = null;
+    } else {
+      /* the user only tried to close the window */
+      e.preventDefault();
+      window.hide();
+    }
+  });
+
+  /* 'before-quit' is emitted when Electron receives
+   * the signal to exit and wants to start closing windows */
+  app.on('before-quit', () => (willQuitApp = true));
 
   window.on('closed', () => {
     mainWindow = null;
@@ -74,6 +84,8 @@ app.on('activate', () => {
   // on macOS it is common to re-create a window even after all windows have been closed
   if (mainWindow === null) {
     mainWindow = createMainWindow();
+  } else {
+    mainWindow.show();
   }
 });
 
