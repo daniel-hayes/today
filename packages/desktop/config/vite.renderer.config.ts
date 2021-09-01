@@ -1,6 +1,6 @@
 import path from 'path';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
-import copy from 'rollup-plugin-copy';
+import fs from 'fs';
 import preprocess from 'svelte-preprocess';
 import { builtinModules } from 'module';
 import { version } from '../package.json';
@@ -9,8 +9,21 @@ const PACKAGE_ROOT = path.join(__dirname, '..');
 const APP_ROOT = path.join(PACKAGE_ROOT, 'src/app');
 const SHARED_ROOT = path.join(__dirname, '../../', 'shared');
 
+function copyDirectory(source, destination) {
+  fs.mkdirSync(destination, { recursive: true });
+
+  fs.readdirSync(source, { withFileTypes: true }).forEach((entry) => {
+    const sourcePath = path.join(source, entry.name);
+    const destinationPath = path.join(destination, entry.name);
+
+    entry.isDirectory()
+      ? copyDirectory(sourcePath, destinationPath)
+      : fs.copyFileSync(sourcePath, destinationPath);
+  });
+}
+
 const config = {
-  mode: process.env.MODE,
+  mode: process.env.NODE_ENV,
   root: APP_ROOT,
   plugins: [
     svelte({
@@ -21,18 +34,11 @@ const config = {
         ],
       }),
     }),
-    copy({
-      targets: [
-        {
-          src: `${SHARED_ROOT}/themes`,
-          dest: `${PACKAGE_ROOT}/app-dist`,
-        },
-        {
-          src: `${PACKAGE_ROOT}/src/resources`,
-          dest: `${PACKAGE_ROOT}/build-dist`,
-        },
-      ],
-    }),
+    copyDirectory(`${SHARED_ROOT}/themes/`, `${PACKAGE_ROOT}/app-dist/themes`),
+    copyDirectory(
+      `${PACKAGE_ROOT}/src/resources/`,
+      `${PACKAGE_ROOT}/build-dist/`
+    ),
   ],
   base: '',
   server: {

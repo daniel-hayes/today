@@ -5,7 +5,7 @@ const PACKAGE_ROOT = path.join(__dirname, '..');
 const ELECTRON_ROOT = path.join(PACKAGE_ROOT, 'src/electron');
 
 const config = {
-  mode: process.env.MODE,
+  mode: process.env.NODE_ENV,
   root: PACKAGE_ROOT,
   envDir: process.cwd(),
   build: {
@@ -13,7 +13,7 @@ const config = {
     target: `chrome91`,
     outDir: `${PACKAGE_ROOT}/app-dist`,
     assetsDir: '.',
-    minify: process.env.MODE === 'development' ? false : 'terser',
+    minify: process.env.NODE_ENV === 'development' ? false : 'terser',
     terserOptions: {
       ecma: 2020,
       compress: {
