@@ -34,12 +34,11 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: yarn install
       - run: yarn workspace @today/shared test
-      - run: cd packages/desktop
-      - run: yarn build:prod
       - name: Release Electron app
+      - run: cd packages/desktop
       - run: node ./scripts/deploy.js
         with:
-          skip_build: true
+          build_script_name: build:prod
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
