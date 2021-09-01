@@ -6,21 +6,21 @@ permalink: /privacy-policy.html
 
 # Privacy Policy
 
-This Privacy Policy will explain how both the Today desktop application and the website [todaylist.io](http://todaylist.io) collects data and how that data is used.
+This Privacy Policy will explain how both the Today application and the website [todaylist.io](http://todaylist.io) collects data and how that data is used.
+
+Both the mobile app and the desktop application do not store any information or track users in any way. All the information in this document refer to the Website.
 
 ## Information Collection and Use
 
-We use Google Analytics to collect usage data such as duration on the website/app, where the user is located (based on IP address) and which buttons and inputs are used.
+We use Google Analytics to collect usage data such as duration on the website, where the user is located (based on IP address) and which buttons and inputs are used.
 
-Google Analytics collects data by placing a cookie on a user’s browser when they visit [todaylist.io](http://todaylist.io) or interact with the desktop application.
+Google Analytics collects data by placing a cookie on a user’s browser when they visit [todaylist.io](http://todaylist.io).
 
 We do not store or collect any personally identifiable information. All data collected is anonymous and is stored solely in Google Analytics.
 
-Today collects your data so that we can better understand how the application is being used and which features are most important to our users.
-
 ## Log Data
 
-We want to inform you that whenever you visit the application or the website, we collect information that your browser sends to us that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol ("IP") address, browser version, browser type, date, duration on the product, and other statistics.
+We want to inform you that whenever you visit the the website, we collect information that your browser sends to us that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol ("IP") address, browser version, browser type, date, duration on the product, and other statistics.
 
 Again, **none of this data contains any personally personally identifiable information.**
 
