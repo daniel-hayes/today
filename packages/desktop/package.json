@@ -1,7 +1,7 @@
 {
   "name": "@today/desktop",
   "productName": "Today",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": "Daniel Hayes <hello@danhayes.me>",
   "repository": "https://github.com/daniel-hayes/today",
   "private": true,
