@@ -13,11 +13,11 @@ files:
   - app-dist/**/*
 
 mac:
-  icon: build-dist/resources/icons/mac/icon.icns
+  icon: build-dist/icons/mac/icon.icns
   category: public.app-category.productivity
   hardenedRuntime: true
-  entitlements: build-dist/resources/entitlements.mac.plist
-  entitlementsInherit: build-dist/resources/entitlements.mac.plist
+  entitlements: build-dist/entitlements.mac.plist
+  entitlementsInherit: build-dist/entitlements.mac.plist
   gatekeeperAssess: false
   target:
     - dmg
@@ -25,13 +25,13 @@ mac:
     - zip
 
 dmg:
-  icon: build-dist/resources/icons/mac/icon.icns
+  icon: build-dist/icons/mac/icon.icns
   iconSize: 128
   contents:
     - { x: 130, y: 220 }
     - { x: 410, y: 220, type: link, path: /Applications }
 win:
-  icon: build-dist/resources/icons/windows/icon.ico
+  icon: build-dist/icons/windows/icon.ico
   target:
     - target: zip
     - target: nsis
@@ -44,13 +44,13 @@ nsis:
   createDesktopShortcut: true
   createStartMenuShortcut: true
   allowToChangeInstallationDirectory: true
-  installerIcon: build-dist/resources/icons/windows/icon.ico
+  installerIcon: build-dist/icons/windows/icon.ico
   shortcutName: Today
   artifactName: Today-${version}.${ext}
 
 linux:
   category: Utility
-  icon: build-dist/resources/icons/png
+  icon: build-dist/icons/png
   target:
     - target: AppImage
     - target: deb
