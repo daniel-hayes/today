@@ -37,6 +37,7 @@ jobs:
       - name: Release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
+          package_root: packages/desktop
           skip_build: true
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
