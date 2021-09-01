@@ -1,31 +1,31 @@
-name: Test App
+# name: Test App
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
+# jobs:
+#   test:
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
-      - uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-      - name: Install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: yarn install
-      - run: yarn workspace @today/shared test
-      - run: yarn workspace @today/desktop build:prod
-      - run: yarn workspace @today/mobile build:app
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#           cache: yarn
+#       - uses: actions/cache@v2
+#         with:
+#           path: '**/node_modules'
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
+#       - name: Install dependencies
+#         if: steps.npm-cache.outputs.cache-hit != 'true'
+#         run: yarn install
+#       - run: yarn workspace @today/shared test
+#       - run: yarn workspace @today/desktop build:prod
+#       - run: yarn workspace @today/mobile build:app
