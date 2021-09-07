@@ -1,6 +1,7 @@
 <script lang="ts">
   import Hr from '../../Hr.svelte';
   import ThemeModal from '../ThemeModal.svelte';
+  import Login from '../Login.svelte';
   import state from '../../../store/state';
   import { dateTimeDifference } from '../../../utils/time';
   import getPlatform, { Platforms } from '../../../utils/getPlatform';
@@ -105,6 +106,10 @@
     </svg>
 
     <p><a href="https://todaylist.io" target="_blank">About</a></p>
+  </li>
+
+  <li>
+    <Login />
   </li>
 </ul>
 <Hr />
