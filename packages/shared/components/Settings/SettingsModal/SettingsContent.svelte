@@ -4,6 +4,7 @@
   import state from '../../../store/state';
   import { dateTimeDifference } from '../../../utils/time';
   import getPlatform, { Platforms } from '../../../utils/getPlatform';
+  import FontSize from '../FontSize.svelte';
 
   const { store } = state;
   const version = process.env.VERSION;
@@ -82,6 +83,17 @@
     >
     <time>{dateTimeDifference(new Date(), new Date($store.expires))}</time>
   </li>
+  <li>
+    <span>
+      <svg viewBox="0 0 448 512"
+        ><path
+          d="M432 416h-23.41L277.88 53.69A32 32 0 0 0 247.58 32h-47.16a32 32 0 0 0-30.3 21.69L39.41 416H16a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16h-19.58l23.3-64h152.56l23.3 64H304a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM176.85 272L224 142.51 271.15 272z"
+        /></svg
+      >
+      <p>Font Size</p></span
+    >
+    <FontSize />
+  </li>
 </ul>
 <Hr />
 <ul class="links">
@@ -132,10 +144,6 @@
     padding: 6px 10px;
     border-radius: 4px;
     margin: 0;
-    opacity: 0;
-    position: absolute;
-    z-index: 1;
-    right: 0;
   }
 
   input.mobile {

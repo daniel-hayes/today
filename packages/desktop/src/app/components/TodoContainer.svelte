@@ -12,6 +12,7 @@
     updateCSSVars,
     variants,
   } from '@today/shared/utils/themes';
+  import { setFontSize } from '@today/shared/utils/fontSize';
   import { onMount } from 'svelte';
   import bridge, { Action, Channel } from '../bridge';
 
@@ -92,6 +93,10 @@
         // update DOM to include custom vars
         updateCSSVars(swatch, storeOrDOMHexValue);
       });
+    }
+
+    if ($store.fontSize) {
+      setFontSize($store.fontSize);
     }
 
     bridge(Channel.SHORTCUT, (action: Action) => {

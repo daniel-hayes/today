@@ -29,7 +29,7 @@ const config = {
     svelte({
       preprocess: preprocess({
         replace: [
-          ['process.env.PLATFORM', JSON.stringify('MOBILE')],
+          ['process.env.PLATFORM', JSON.stringify('DESKTOP')],
           ['process.env.VERSION', JSON.stringify(version)],
         ],
       }),
