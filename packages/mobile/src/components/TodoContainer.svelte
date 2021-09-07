@@ -13,6 +13,7 @@
     updateCSSVars,
     variants,
   } from '@today/shared/utils/themes';
+  import { setFontSize } from '@today/shared/utils/fontSize';
   import { onMount } from 'svelte';
 
   const hapticsImpactLight = async () => {
@@ -96,6 +97,10 @@
         // update DOM to include custom vars
         updateCSSVars(swatch, storeOrDOMHexValue);
       });
+    }
+
+    if ($store.fontSize) {
+      setFontSize($store.fontSize);
     }
   });
 

@@ -22,9 +22,9 @@ export type Store = {
   todos: Todo[];
   theme: Theme;
   newDay: `${string}:${string}`;
-  focus: boolean; // TODO
   updatedAt: Date | null;
   expires: Date | null;
+  fontSize: number;
 };
 
 const currentThemes = getThemes();
@@ -32,9 +32,9 @@ const DEFAULT_STATE: Store = {
   todos: [],
   theme: currentThemes.find((t) => t.title === 'Dark'),
   newDay: '00:00',
-  focus: false,
   updatedAt: null,
   expires: null,
+  fontSize: 14,
 };
 
 class State extends LocalStore<Store> {

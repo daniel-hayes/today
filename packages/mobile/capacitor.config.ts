@@ -16,7 +16,7 @@ const config: CapacitorConfig = {
   cordova: {},
   server: {
     ...(process.env.NODE_ENV !== 'production' && {
-      url: 'http://192.168.0.15:5001/',
+      url: 'http://192.168.1.153:5001/',
     }),
     cleartext: true,
   },
