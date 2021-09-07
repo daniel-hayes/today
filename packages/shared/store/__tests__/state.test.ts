@@ -11,7 +11,7 @@ const MOCK_STORE: Store = {
     accent: '#5dbbea',
   },
   newDay: '24:00',
-  focus: false,
+  fontSize: 14,
   updatedAt: new Date('2021-05-29T12:00:00.000Z'),
   expires: new Date('2021-05-30T10:00:00.000Z'),
 };
@@ -63,29 +63,31 @@ describe('LocalStore', () => {
       const currentState = get(state.store);
       expect(currentState.todos).toEqual([todoMock]);
       expect(currentState.updatedAt).toEqual(new Date(todayMock));
-      expect(currentState.expires).toEqual(new Date('2021-05-30T00:00:00.000Z'));
+      expect(currentState.expires).toEqual(
+        new Date('2021-05-30T00:00:00.000Z')
+      );
     });
   });
 
   describe('update', () => {
     it('should update state', () => {
-      state.update({ newDay: '10:00', focus: true });
+      state.update({ newDay: '10:00', fontSize: 16 });
       expect(get(state.store)).toEqual({
         todos: [],
         ...MOCK_STORE,
         newDay: '10:00',
-        focus: true,
+        fontSize: 16,
       });
     });
 
     it('should update localStore', () => {
-      state.update({ newDay: '10:00', focus: true });
+      state.update({ newDay: '10:00', fontSize: 16 });
       expect(JSON.parse(localStorage.getItem(state.key))).toEqual({
         ...MOCK_STORE,
         updatedAt: '2021-05-29T12:00:00.000Z',
         expires: '2021-05-30T10:00:00.000Z',
         newDay: '10:00',
-        focus: true,
+        fontSize: 16,
       });
     });
   });

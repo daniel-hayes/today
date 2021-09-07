@@ -45,14 +45,16 @@ describe('LocalStore', () => {
           accent: '',
         },
         newDay: '10:00',
-        focus: true,
+        fontSize: 14,
         updatedAt: null,
         expires: null,
       };
 
       state.localStore = mockStore;
 
-      expect(localStorage.getItem(state.key)).toEqual(JSON.stringify(mockStore));
+      expect(localStorage.getItem(state.key)).toEqual(
+        JSON.stringify(mockStore)
+      );
     });
   });
 });
