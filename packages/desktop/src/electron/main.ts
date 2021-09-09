@@ -3,6 +3,7 @@ import { autoUpdater } from 'electron-updater';
 import log, { ElectronLog } from 'electron-log';
 import path from 'path';
 import MenuBuilder from './menu';
+import payments from './payments';
 
 autoUpdater.logger = log;
 (autoUpdater.logger as ElectronLog).transports.file.level = 'info';
@@ -152,3 +153,6 @@ app.on('web-contents-created', (_, contents) => {
     };
   });
 });
+
+// initialize payments
+payments();
