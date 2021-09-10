@@ -1,14 +1,18 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+// import { getAuth } from 'firebase/auth';
 // import firebase from 'firebase/database';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
+
+const { VITE_FIREBASE_API_KEY, VITE_FIREBASE_DATABASE_URL } = import.meta.env;
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  apiKey: VITE_FIREBASE_API_KEY,
+  databaseURL: VITE_FIREBASE_DATABASE_URL,
 };
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
+
+export default initializeApp(firebaseConfig);
 
 // console.log(db);
 

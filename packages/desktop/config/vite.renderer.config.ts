@@ -24,6 +24,7 @@ function copyDirectory(source, destination) {
 
 const config = {
   mode: process.env.NODE_ENV,
+  envDir: PACKAGE_ROOT,
   root: APP_ROOT,
   plugins: [
     svelte({

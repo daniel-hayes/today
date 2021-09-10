@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Field, ErrorMessage, Form } from 'svelte-forms-lib';
   import * as yup from 'yup';
-  import { login } from '../../utils/auth';
+  import { register } from '../../utils/auth';
 
   const formProps = {
     initialValues: {
@@ -13,10 +13,13 @@
         .string()
         .required('Email is required')
         .email('Email is invalid'),
-      password: yup.string().required('Password is required'),
+      password: yup
+        .string()
+        .min(6, 'Password must be at least 6 characters')
+        .required('Password is required'),
     }),
     onSubmit: (values) => {
-      login(values);
+      register(values);
     },
   };
 </script>
@@ -30,5 +33,10 @@
   <Field name="password" type="password" />
   <ErrorMessage name="password" />
 
-  <button type="submit">submit</button>
+  <ul>
+    <li>Sync lists, settings and custom themes between devices</li>
+    <li>View todo lists form the past (coming soon)</li>
+  </ul>
+
+  <button type="submit">Sign Up</button>
 </Form>

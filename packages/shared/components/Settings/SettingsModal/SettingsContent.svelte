@@ -1,7 +1,7 @@
 <script lang="ts">
   import Hr from '../../Hr.svelte';
   import ThemeModal from '../ThemeModal.svelte';
-  import Login from '../Login.svelte';
+  import AccountModal from '../AccountModal.svelte';
   import state from '../../../store/state';
   import { dateTimeDifference } from '../../../utils/time';
   import getPlatform, { Platforms } from '../../../utils/getPlatform';
@@ -109,7 +109,7 @@
   </li>
 
   <li>
-    <Login />
+    <AccountModal />
   </li>
 </ul>
 <Hr />
