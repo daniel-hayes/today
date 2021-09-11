@@ -1,11 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-
-  import * as yup from 'yup';
   import Hr from '../Hr.svelte';
   import Modal from '../Modal.svelte';
   import Login from './Login.svelte';
   import Signup from './Signup.svelte';
+  import userStore from '../../store/user';
+  import { logout } from '@today/shared/utils/firebase';
 
   enum ModalViewState {
     LOGIN,
@@ -46,7 +45,9 @@
   </div>
 
   <div slot="header">
-    {#if view === ModalViewState.LOGIN}
+    {#if $userStore.uid}
+      Account
+    {:else if view === ModalViewState.LOGIN}
       Login
     {:else}
       Sign Up
@@ -54,7 +55,10 @@
   </div>
 
   <div slot="content">
-    {#if view === ModalViewState.LOGIN}
+    {#if $userStore.uid}
+      Cool
+      <button on:click={logout}>log out</button>
+    {:else if view === ModalViewState.LOGIN}
       <Login />
       <Hr />
       <button on:click={() => toggleView(ModalViewState.SIGNUP)}>Sign Up</button

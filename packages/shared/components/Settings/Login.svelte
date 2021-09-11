@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Field, ErrorMessage, Form } from 'svelte-forms-lib';
   import * as yup from 'yup';
-  import { login } from '../../utils/auth';
+  import { login } from '../../utils/firebase';
 
   const formProps = {
     initialValues: {

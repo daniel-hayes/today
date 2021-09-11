@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Field, ErrorMessage, Form } from 'svelte-forms-lib';
   import * as yup from 'yup';
-  import { register } from '../../utils/auth';
+  import { register } from '../../utils/firebase';
 
   const formProps = {
     initialValues: {
@@ -18,8 +18,10 @@
         .min(6, 'Password must be at least 6 characters')
         .required('Password is required'),
     }),
-    onSubmit: (values) => {
-      register(values);
+    onSubmit: async (values: { email: string; password: string }) => {
+      const user = await register(values);
+
+      console.log(user);
     },
   };
 </script>

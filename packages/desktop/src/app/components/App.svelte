@@ -1,5 +1,6 @@
 <script lang="ts">
   import TodoContainer from './TodoContainer.svelte';
+  import { authStateChanged } from '@today/shared/utils/firebase';
   import { onDestroy, onMount } from 'svelte';
 
   // setup listeners
@@ -15,6 +16,9 @@
 
   onMount(() => {
     document.addEventListener('keydown', blur);
+
+    // init auth listener
+    authStateChanged();
   });
 
   onDestroy(() => {
