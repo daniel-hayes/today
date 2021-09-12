@@ -3,6 +3,8 @@
   import * as yup from 'yup';
   import { login } from '../../utils/firebase';
 
+  let errorMessage = null;
+
   const formProps = {
     initialValues: {
       email: '',
@@ -15,8 +17,15 @@
         .email('Email is invalid'),
       password: yup.string().required('Password is required'),
     }),
-    onSubmit: (values) => {
-      login(values);
+    onSubmit: async (values: { email: string; password: string }) => {
+      // reset if error exists
+      errorMessage = null;
+
+      const error = await login(values);
+
+      if (error) {
+        errorMessage = error;
+      }
     },
   };
 </script>
@@ -31,4 +40,8 @@
   <ErrorMessage name="password" />
 
   <button type="submit">submit</button>
+
+  {#if errorMessage}
+    {errorMessage}
+  {/if}
 </Form>

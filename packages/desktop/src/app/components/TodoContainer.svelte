@@ -18,6 +18,8 @@
 
   const { store } = state;
   let todos: TodoType[] = $store.todos;
+
+  console.log(todos);
   let inputValue = '';
   let input: HTMLInputElement;
 
@@ -195,8 +197,10 @@
     grabbed = null;
     draggable.innerHTML = null;
 
-    // update locally stored todos
-    state.setTodos(todos);
+    if ($store.todos !== todos) {
+      // update locally stored todos
+      state.setTodos(todos);
+    }
   }
 </script>
 

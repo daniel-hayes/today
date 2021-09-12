@@ -2,6 +2,10 @@
   import TodoContainer from './TodoContainer.svelte';
   import { authStateChanged } from '@today/shared/utils/firebase';
   import { onDestroy, onMount } from 'svelte';
+  // import userStore from '@today/shared/store/user';
+  // import state from '@today/shared/store/state';
+
+  // const { store } = state;
 
   // setup listeners
   const blur = (e: KeyboardEvent) => {
@@ -16,14 +20,13 @@
 
   onMount(() => {
     document.addEventListener('keydown', blur);
-
-    // init auth listener
-    authStateChanged();
   });
 
   onDestroy(() => {
     document.removeEventListener('keydown', blur);
   });
+
+  console.log(authStateChanged, 'WHAT');
 </script>
 
 <svelte:head>
@@ -35,7 +38,18 @@
 </svelte:head>
 
 <main>
-  <TodoContainer />
+  <!-- {#if $userStore.uid}
+    <TodoContainer />
+  {/if} -->
+
+  {#await authStateChanged()}
+    <p>...waiting</p>
+  {:then number}
+    <p>The number is {number}</p>
+    <TodoContainer />
+  {:catch error}
+    <p style="color: red">{error}</p>
+  {/await}
 </main>
 
 <style>
