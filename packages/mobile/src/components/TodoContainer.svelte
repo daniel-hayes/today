@@ -282,6 +282,7 @@
 
 <style>
   form {
+    margin-top: 20px;
     position: relative;
     text-align: center;
     width: 100%;
