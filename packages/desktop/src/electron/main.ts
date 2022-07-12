@@ -1,7 +1,8 @@
 import { app, shell, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
-import log, { ElectronLog } from 'electron-log';
+import log from 'electron-log';
 import path from 'path';
+import type { ElectronLog } from 'electron-log';
 import MenuBuilder from './menu';
 
 autoUpdater.logger = log;
